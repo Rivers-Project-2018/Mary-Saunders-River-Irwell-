@@ -6,6 +6,8 @@ Once I had decided which flood to investigate, I contacted the Environment Agenc
 
 Using this data I was able to plot the followng quadrant graoh, which shows the different relationships between time, flow and river height. I chose the threshold height of flooding *h<sub>T</sub>* by examining local news articles from the flood. A pub nearby to the local station had flooded with 3 feet of water by 3pm on 26th December - I compared this to my data and discovered that the height of the river at this time was 3.592m. Also, looking at Shoothill's GaugeMap, I found out that the recent highest level of the river here was 2.66m, however from knowledge from family and friends I do know no flooding occured at this time. Therefore I took my threshold to be in the middle of these 2 values, at 3m.
 
+![Don-Quadrant_Graph](https://github.com/Rivers-Project-2018/Group-Project/blob/master/Don-Quadrant_Graph.png)
+
 ## Flood mitigation plans
 The Environment Agency also provided me with a small amount of information about flood mitigation plans that have been implemented since the flood of 2015. 
 
