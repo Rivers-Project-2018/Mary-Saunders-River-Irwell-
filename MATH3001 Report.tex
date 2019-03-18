@@ -40,7 +40,7 @@
 \hrulefill
 
 \vspace{1cm}
-{\LARGE Assessing the river floods of Boxing Day 2015 and similar floods, and communicating the mitigation plans to policy makers and the general public}\\
+{\LARGE Using flood-excess volume to assess the Boxing Day 2015 flooding of the River Irwell and similar floods, and communicating the mitigation plans to policy makers and the general public}\\
 \vspace{12cm}
 Mary Saunders\\
 Student ID: 201001740\\
@@ -55,14 +55,20 @@ Student ID: 201001740\\
 \section{Introduction}
 "Major flooding in the UK is now likely to happen every year but ministers still have no coherent long-term plan to deal with it" \cite{1}. A major flooding event is not something that everyone tends to worry about in the UK, however they appear to be occurring more and more frequently \cite{1}, with disastrous consequences. Extreme floods leave families without homes, businesses and sometimes more devastatingly, without family members. The floods of Boxing Day in 2015 alone caused damage costing billions of pounds across the North of England, with the floods inducing two explosions, multiple fires and the partial destruction of a 200-year old listed building in Greater Manchester \cite{2}.  \\
 
-The aim of this project is to analyse flood data for various rivers provided by the Environment Agency, to look at existing flood mitigation plans and use these to propose some of our own, whilst also looking at the cost-effectiveness of these plans. Overall we aim to assist policy makers and the general public in ways that may help to reduce the damaging effects of extreme river events.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{pub.png}
+\caption{Collapsed pub due to flooding \textcolor{red}{REFERENCE AND EXPAND https://www.independent.co.uk/news/uk/home-news/uk-flooding-200-year-old-pub-on-bridge-collapses-as-river-irwell-floods-a6786556.html}}
+\end{figure}
 
-A brief outline of this report is as plans:
+The aim of this project is to analyse flood data for various rivers provided by the Environment Agency, to look at existing flood mitigation plans and use these to propose various hypothetical plans, whilst also looking at the cost-effectiveness of these. Overall the aim is to assist policy makers and the general public in ways that may help to reduce the damaging effects of extreme river events. One way to do this is to provide a code which will allow the flood-excess volume (\S 3) value to be found for any particular flood, which may help to prepare for any future damage. Once the flood-excess volume value is known, a cost-effective analysis can be done for mitigation plans, which will provide a cost per percent of the flood-excess volume mitigated. \textcolor{red}{TALK ABOUT HOW THIS REPORT IS ONLY FOR RIVER FLOODING.}\\
+
+The main background work that has formed the basis of this report was done as a team comprised of Antonia Fielden, Abbey Chapman, Sophie Kennett, Jack Willis and Mary Saunders, however there are sections that were produced individually. A brief outline of this report is as follows, indicating which sections were done as a team or individually:
 \begin{itemize}
-\item Approaches to the mitigation of floods, which is discussed in \S 2 on flood mitigation
-\item Analysis of the 2015 Boxing Day floods in Yorkshire and Greater Manchester, and other floods across the North of England, in \S 3-5
-\item Mitigation schemes for these areas, discussed within each respective section
-\item Cost-effectiveness of these schemes 
+\item Approaches to the mitigation of floods, which is discussed in \S 2.
+\item An overview of the model of flood-excess volume is provided in \S 3, which has been produced individually by the author after study of the work already published by O. Bokhove, T. Kent and M.A. Kelmanson \textcolor{red}{reference}.
+\item Analysis of various great floods in Yorkshire in \S 4, produced by the team as a whole and based on the work in [reference] and [reference]. These findings were used as a verification of flood-excess volume as a model.
+\item An analysis of the Boxing Day 2015 flood of the River Irwell, researched and studied independantly by the author, is included in \S 5, including mitigation schemes for this area. 
 \end{itemize}
 
 \section{Flood mitigation}
@@ -79,7 +85,7 @@ There are many approaches to flood mitigation in use, some more effective than o
 There are also multiple natural flood mitigation (NFM) strategies available, which alter, restore or make use of the surrounding landscape to decrease the risk of flooding \cite{5}. These ideas include:
 \begin{itemize}
 \item Tree planting - trees absorb some rainfall, albeit a minute amount (a mature tree is estimated to absorb or intercept around 1,400 gallons of water per year \cite{6}), but also directly intercept rainfall. Trees also encourage high absorption rates in the soil \cite{5}.
-\item Buffer strips - strips of grass can be placed in a network around lakes and rivers to stop the flow of unusual flod water. \cite{7}.
+\item Buffer strips - strips of grass can be placed in a network around lakes and rivers to stop the flow of unusual flood water \cite{7}.
 \end{itemize}
 Homeowners themselves can also implement certain mitigation schemes to reduce risk of damage from flooding. These include:
 \begin{itemize}
@@ -90,55 +96,95 @@ Homeowners themselves can also implement certain mitigation schemes to reduce ri
 \subsection{Return periods}
 A return period is the probability that a flood will occur within any given year. For example, if a flood has a return period of 100 years (probability of 1/100), this means that in any given year the probability of such a flood occurring is 1\%. This is frequently misinterpreted to mean that if a flood with this return period occurs then the next flood will happen in 100 years \cite{8}. \textcolor{red}{EXPAND ON THIS SECTION - ADD STATS}.\\
 
-\subsection{Flood excess-volume (--FEV)}
-In order to effectively plan and analyse flood mitigation schemes, we need to know how much flood water is involved. To do so, we will introduce the concept of \textit{flood-excess volume}. Flood-excess volume (FEV) is the volume of water that causes the flood in question, and so it is the amount we wish to mitigate/reduce to zero using one or more mitigation measures, to prevent flood damage for an event within a given return period. \textcolor{red}{EXPAND MORE MATHEMATICALLY}.\\
+\section{Flood excess-volume (--FEV)}
+\subsection{What is flood-excess volume?}
+In order to effectively plan and analyse flood mitigation schemes, we need to know how much flood water is involved. To do so, we will introduce the concept of \textit{flood-excess volume}. Flood-excess volume (or FEV) is the volume of water, in units $m^3$ that causes the flood in question, and so it is the amount we wish to mitigate/reduce to zero using one or more mitigation measures, to prevent flood damage for an event within a given return period.\\
 
-In order to calculate the FEV, we will first obtain data, for example from the Environment Agency, for our desired flood. River levels are checked at regular time intervals during the year, for example every 15 minutes at several stations, by a large network of river gauges throughout the country that measure the river height at the gauge location. The data recorded by these monitoring stations is available freely upon request by the Environment Agency, by the Freedom of Information Act 2000. \\
+As a first step, a suitable value is chosen as a threshold height of the river above which flooding occurs ($h_T$). This can be estimated from social media pictures and discussions of the local area at the same time of the flood and can be compared to readings obtained from the monitoring station at the same given time. Conversely, online resources such as Shoothill's GaugeMap (http://www.gaugemap.co.uk/) (\textcolor{red}{SAY WHERE GAUGEMAP GET THEIR INFO FROM SO NOT AS AMBIGUOUS)} can be used which provides heights of rivers above which flooding is possible in an area may occur. As there are multiple ways one can choose their value for $h_T$, there is a substantial amount of ambiguity involved in calculating the FEV as different threshold heights will output a different FEV value.\\
 
-As a first step, we choose a suitable value from the data collected to define as a threshold height of the river above which flooding occurs ($h_T$). This can be estimated from social media pictures and discussions of the local area at the same time of the flood and can be compared to readings obtained from the monitoring station at the same given time. Conversely, online resources such as Shoothill's GaugeMap (http://www.gaugemap.co.uk/) can be used which provides heights of rivers above which flooding is possible in an area may occur. As there are multiple ways one can choose their value for $h_T$, there is a substantial amount of ambiguity involved in calculating the FEV as different threshold heights will output a different FEV value.\\
+\subsection{The rating curve}
+The flow of the river during the flood is required to calculate the FEV, however it is usually expensive and impractical to take measurements of this, unlike the measuring of the river height. Therefore, a relationship between the two must be established. This association is known as a rating curve 
+\begin{equation}\tag{3.1}
+Q = Q(\bar{h}),
+\end{equation} 
+where $Q$, measured in $m^3/s$, is the flow of the water, and $\bar{h}$ the corresponding river height. It is important to note here that the discharge curve, $Q$, is a composite of functions - $Q$ is a function of $\bar{h}$, which is in turn a function of $t$. That is, the rating curve implicitly is a function of time:
+\begin{equation}\tag{3.2}
+Q(\bar{h})=Q(\bar{h}(t))=Q(t).
+\end{equation}
+A rating curve is created by taking simultaneous measurements of river height and flow over a given period of time, then fitting a line of best fit to the resulting scatter plot. As very high and very low river heights occur infrequently, it can be hard to measure the flow rate for these stages. Therefore methods of extrapolation must be used for the rating curve and heights that are outside the covered range. (http://www.mahahp.gov.in/images/29HOWTOESTABLISHSTAGEDISCHARGERATINGCURVE.pdf)\\
 
-To convert $h_T$ into a volume of water (or discharge), a relationship between the two must be established. This association is known as a rating curve and is created by taking frequent measurements from a specific monitoring station at a specific time and plotted on a graph, ie. $Q = Q(\bar{h})$, where $Q$, measured in $m^3/s$, is the flow of the water. \\
+The rating curve has a typical equation with varying coefficients $a_j,b_j,c_j$ that can be provided in a rating change report by the Environment Agency upon request. \textcolor{red}{TALK ABOUT COEFFICIENTS OF THE CONSATNTS}. It is as follows:
+\begin{equation}\tag{3.3}
+Q(\bar{h}) = c_j(\bar{h} - a_j)^{b_j}, \quad j= 1,...,m.
+\end{equation}
 
-We can convert our $h_T$ into a value for the threshold discharge, $Q_T=Q(h_T)$. Then the FEV, or $V_e$, is defined as the integral of $Q(t)-Q_T$ for the duration $T_f$ of the flood, which itself is when $Q-Q_T > 0$. $V_e$ is given in units $m^3$ \cite{9}. \\
+We can convert our $h_T$ into a value for the threshold discharge, $Q_T=Q(h_T)$ using (3.3). Then the FEV, or $V_e$, is defined as the integral over discharge for the duration $T_f$ of the flood, that is it i the integral of $Q(t)-Q_T$ when $Q-Q_T > 0$, where $T_f$ is the time difference between the river height first crossing the threshold $T_f$ and dropping back below it \cite{9}. It is not possible to exactly calculate this integral, therefore approximations for FEV can be reached using certain formulae, of varying accuracy. In order to define and understand the approximations, reference to Fig. 2 must be made. The flood-excess volume is represented as the shaded segment in the top right quadrant - to calculate the FEV, the area of this segment must be found. \\
 
-\subsection{Square lake graphs}
-Having found the FEV for a given flood, it can be hard to visualise just how much floodwater needs to be mitigated. A simple yet effective way to express this value is as a 2-metre deep 'square lake', with side lengths relevant to the value of the FEV, so that the volume of the square lake matches that of the flood-excess volume. The 2-metre depth was chosen as the average height of a human, rounded to the nearest metre for ease. This immediately makes it much easier to imagine how much flood water needs to be mitigated, and as the depth is minimal compared to the length of the sides, this allows us to view the lake from above as a square. This in turn makes it much simpler to allocate certain proportions of the flood-excess volume floodwater to different flood mitigation strategies \cite{8}.\\
+\subsection{Estimates of FEV}
+The total volume $V$ of water discharged at a particular point of a river over a given length of time is calculated approximately by 
+\begin{equation}\tag{3.4}
+V \approx \sum_{k=1}^{n} (Q(\bar{h}_k)) \Delta t,
+\end{equation}
+where $n$ is the number of values of $Q(\bar{h})$ we have over the length of time, and $\Delta t$ is the time elapsed between $Q(\bar{h}_k)$ and $Q(\bar{h}_{k+1})$. As the FEV is the volume of water discharged once the river height is over the chosen threshold $h_T$, the first approximation of the FEV, $V_{e_1}$ is given by the summation
+\begin{equation}\tag{3.5}
+V_{e_1}=\sum_{k=1}^{n} (Q(\bar{h}_k)-Q(h_T)) \Delta t.
+\end{equation}
 
-\textcolor{red}{****Include image of standard square lake template****}\\
+$T_f$ has been defined as the duration of the flood, and $\Delta t$ as the time elapsed between each $Q(\bar{h})$ value, therefore it is clear that here $\Delta t = \frac{T_f}{n}$. This approximation increases in accuracy as the value of $\Delta t$ decreases, and therefore as $n \rightarrow \infty$, $\Delta t \rightarrow 0$ and this approximation of FEV becomes the exact integral of the curve $Q(\bar{h})$ over the duration $T_f$, ie. the exact value of the flood-excess volume. Hence this is the most accurate approximation for the FEV in the case where $n$ is sufficiently large for a given flood. This value of FEV is represented by the shaded area in Fig. 2. \textcolor{red}{TALK ABOUT WHY THIS IS MORE ACCURATE}\\
 
-\section{Boxing Day 2015 floods in Yorkshire}
+In order to calculate the FEV using this method, data for the desired flood must first be obtained from sources such as the Environment Agency, concerning river height, flow rate and the rating curve coefficients. River levels are checked at regular time intervals during the year, for example every 15 minutes at several stations, by a large network of river gauges throughout the country that measure the river height at the gauge location. The data recorded by these monitoring stations is available freely upon request by the Freedom of Information Act 2000. \\
+
+If the river height measurements $\bar{h}_k$ and the rating curve for the chosen river are not known, a simplistic approximation can be done by 'eye integration'. Assume we have a value $Q_m$, defined as the mean discharge of the flood period $T_f$. Then, a second estimation of FEV, $V_{e_2}$, can be defined as
+\begin{equation}\tag{3.6}
+V_{e_2} = T_f(Q_m - Q_T),
+\end{equation}
+where $Q_T$ is the discharge corresponding to the threshold height $h_T$. Graphically, this estimate can be seen as the area of the black rectangle in Fig. 2. \textcolor{red}{TALK ABOUT WHY THIS ESTIMATE IS NOT ACCRUATE}.\\
+
+A third estimate $V_{e_3}$ is needed for situations where the rating curve is not known, and river height measurements are not automatically taken, but discharge rates are required to be estimated for flood-mitigation purposes. When only a threshold height $h_T$, the flood duration $T_f$, the peak river level $h_{max}$ and its corresponding flow rate $Q_{max}$ are known, one can obtain a mean river height $h_m$ during $T_f$ with the following calculation: 
+\begin{equation}\tag{3.7}
+h_m \approx \frac{(h_{max}+h_T)}{2},
+\end{equation}
+and from this estimate values of the corresponding flow rates for $h_T$ and $h_m$, $Q_T$ and $Q_m$, can be found using linear interpolation:
+\begin{equation}\tag{3.8}
+Q_T \approx \frac{h_T}{h_{max}}Q_{max}
+\end{equation}
+and
+\begin{equation}\tag{3.9}
+Q_m \approx \frac{h_m}{h_{max}}Q_{max}.
+\end{equation}
+Therefore an estimate of (3.4) can be made using equations (3.8) and (3.9) and gives the final estimate of FEV in the following way:
+\begin{equation}\tag{3.10}
+V_{e_3} = T_f \frac{Q_{max}}{h_{max}}(h_m - h_T).
+\end{equation}
+
+\textcolor{red}{NOW TALK ABOUT HOW WE CAN USE FEV AND HOW WE CAN VERIFY IT AS A MODEL. INCLUDE CRITICISMS WHERE APPROPRIATE. INCLUDE REFERENCE TO ARCHIVED PAPER. }\\
+
+\section{Verification of FEV as a model - Yorkshire floods}
 Our first task was to recreate the quadrant plots for the Yorkshire floods already previously created by Professor Onno Bokhove and Dr Thomas Kent, our supervisors, and provide our own analysis. Our reasoning for this was to show that we could reproduce their graphs, therefore providing verification of their general procedure using new programs, with a goal to therefore use it for new river data. This learning and verification process further made their results more reliable, and allowed us to write our own automated code with a clear end result in mind. The verification of their model enables our routines within this project to bear some trustworthiness.
 
-\subsection{The River Aire, Leeds}
+\subsection{The River Aire, Leeds (Boxing Day 2015)}
 The River Aire begins its course at Malham Tarn, a lake in the Yorkshire Dales, and flows through Leeds before it joins the River Ouse in the village of Airmyn \cite{9}. Intense rainfall over the Christmas period in 2015 caused the Aire to break its banks and damage 3,355 properties, including homes and businesses. Before this event, another of Leeds' most catastrophic floods was in 1866, where the water levels only reached a third of the height of the 2015 flood water levels, however still 20 people lost their lives - the significant increase in water levels during the flood massively highlighted Leeds' need for more effective flood defences \cite{10}. The difference in height of the river during these two floods can be seen in below (Fig.~1), highlighted by the plaques showing the maximum height reached.\\
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.35]{plaques.png}
+\includegraphics[scale=0.6]{plaques.png}
 \caption{Commemorative plaques at Leeds Industrial Museum recognising the height reached by the water of two of Leeds' most disastrous floods. The Boxing Day 2015 plaque was unveiled on 13th May 2016 by Leeds City Council Councillor Judith Blake. Standing at 5 feet and 6 inches, I am pictured beside the plaques to provide a sense of scale, and this depicts just how high up the museum walls the flood water came. Also to bear in mind when thinking about the depth of the flood is the fact that the River Aire runs its course around 8 feet below ground level here in the photograph.}
 \end{figure}
 
 For the analysis of the Boxing Day flood in Leeds, we looked at the monitoring station for the River Aire at Armley. The average water depth at Armley in standard weather conditions is between 0.28m and 0.95m, and as we will see in the following analysis, the Aire reached its highest ever recorded level of 5.21m during the Boxing Day flood \cite{11}. This figure alone shows what a catastrophic and damaging flood this was.
 
 \subsubsection{Quadrant plot and analysis}
-Having received data from the Environment Agency outlining the height ($m$) and the flow ($m^3/s$) for the River Aire over the period of the flood, we were able to plot a quadrant graph which shows different relationships between the variables (Fig.~2). River level measurements at regular 15 minute intervals between 25th December and 30th December 2015 were used here. Note that, flow means the volume of water that passes a specific point per second. Here and elsewhere, the program R was used to plot the following graph.
+Having received data from the Environment Agency outlining the height ($m$) and the flow ($m^3/s$) for the River Aire over the period of the flood, we were able to plot a quadrant graph which shows different relationships between the variables (Fig.~2). River level measurements at regular 15 minute intervals between 25th December and 30th December 2015 were used here. Note that, flow means the volume of water that passes a specific point per second. Here and elsewhere, the program Python was used to plot the following graph.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.65]{airepythongraph.png}
-\caption{A quadrant plot for the 2015 Boxing Day flood of the River Aire at Armley. The lower left quadrant displays the river height against time, the upper right quadrant shows time against flow, and the upper left quadrant contains a rating curve (discussed in more detail in \S 3.1.3) with a linear approximation. The raw data provided to us was used for height $\bar{h}$ and time $t$ for this graph, however flow was not used as we were provided with the information for the rating curve, which is what is used by the Environment Agency to calculate the flow data. The dashed lines indicate a threshold height $h_T$ and the mean height of the flood $h_M$, and their respective flow rates $Q_M$ and $Q_T$ (\S 3.1.4).}
+\includegraphics[width=\textwidth]{airepythongraph.png}
+\caption{A quadrant plot for the 2015 Boxing Day flood of the River Aire at Armley. The lower left quadrant displays the river height against time, the upper right quadrant shows time against flow, and the upper left quadrant contains a rating curve (discussed in more detail in \S 3.1.3) with a linear approximation. The raw data provided to us was used for height $\bar{h}$ and time $t$ for this graph, however flow was not used as we were provided with the information for the rating curve, which is what is used by the Environment Agency to calculate the flow data. The dashed lines indicate a threshold height $h_T$ and the mean height of the flood $h_M$, and their respective flow rates $Q_M$ and $Q_T$ (\S 3.1.4). The flood-excess volume is represented by the shaded region in the upper right quadrant, and the surrounding rectangle represents an approximation of this. With a chosen threshold $h_T=3.9m$, the FEV was calculated to be 9.34$Mm^3$ with a flood duration $T_f=32hrs$.}
 \end{figure}
 
 \textcolor{red}{EXPLAIN FEV IN GRAPH AND RECTANGLE.}\\
 
-\subsubsection{Data scaling and plotting of graph}
-When first plotting the graph, my first instinct was to create four separate subplots and attempt to merge them together, however I soon realised that this was not feasible. Instead, as a group we decided the best way to move forward with our recreations of the graph would be to treat the data as one data set. We scaled the height ($h$) and time ($t$) data so that all the data points were between 0 and 1, allowing us to create one singular plot and add each curve to it separately. \\
-
-To plot the rating curve in the upper left quadrant, we originally plotted the raw data for height against the raw data for flow. This provided us with a similar curve, however we soon learnt that not all monitoring stations in the UK actually measure the flow of the river, and that the Environment Agency frequently get their flow data from a rating curve formula.\\
-
-In the lower left quadrant we simply plotted the raw data for height against time. The rating curve was plotted using the function explained in the following section, and the curve in the upper right quadrant shows the relationship between flow and time - this was plotted by entering the raw $h$ values into the rating curve function and plotting these against $t$. It is important to note here that the discharge curve, $Q$, is a composite of functions - $Q$ is a function of $h$, which is in turn a function of $t$. That is,
-$$Q(t)=Q(\bar{h})=Q(\bar{h}(t)).$$
 
 \subsubsection{The rating curve}
-\textcolor{red}{MAYBE DISCUSS HOW ENVIRONMENT AGENCY CALCULATES COEFFICIENTS}. In hydrology, a rating curve establishes a relationship between river height and the discharge of water. It is developed by taking measurements for the discharge at monitoring stations, which can fluctuate over time, so it is necessary to reassess at various points in time \cite{12}. The rating curve is what is used by the Environment Agency to calculate the flow data. The rating curve is plotted using the function: 
+\textcolor{red}{MAYBE DISCUSS HOW ENVIRONMENT AGENCY CALCULATES COEFFICIENTS. TALK ABOUT HOW EA MADE RATING CURVE.-ERROR BARS?}. In hydrology, a rating curve establishes a relationship between river height and the discharge of water. It is developed by taking measurements for the discharge at monitoring stations, which can fluctuate over time, so it is necessary to reassess at various points in time \cite{12}. The rating curve is what is used by the Environment Agency to calculate the flow data. The rating curve is plotted using the function: 
 $$Q(h) = c(h-a)^b$$,
 where $h$ takes arbitrary values of regular intervals between 0 and 6, and $Q$ is flow. 6 was chosen as the upper limit as it is higher than the maximum height reached by the river, so we allow for extrapolation. The coefficients $a,b$ and $c$ are provided for each monitoring station in a rating change report, available upon request from the Environment Agency \textcolor{red}{(TALK ABOUT THE UNITS OF THESE COEFFICIENTS)}. This information allows us to plot the rating curve, and from that a linear approximation of the curve (shown in figure 1 by the dashed line in the upper left quadrant). For Armley, the rating change information is as follows: \\
 \begin{table}[H]
@@ -152,14 +198,14 @@ where $h$ takes arbitrary values of regular intervals between 0 and 6, and $Q$ i
 1.917 & 4.17 & 30.127 & 1.502 & 0.153 \\
 \hline
 \end{tabular}
-\caption{Table showing the coefficients for the rating curve function for different values of $h$ for the River Aire at Armley, obtained from the Environment Agency's 2016 Aire at Armley Rating Change Report \textcolor{red}{(CITE)}. The lowest limit has been taken as 0.2m as this is just below the lowest recorded river height at Armley.}
+\caption{Table showing the coefficients for the rating curve function for different values of $h$ for the River Aire at Armley, obtained from the Environment Agency's 2016 Aire at Armley Rating Change Report \textcolor{red}{(CITE)}. The lowest limit has been taken as 0.2m as this is just below the lowest recorded river height at Armley. \textcolor{red}{TALK ABOUT LOWER LIMIT IN MORE DETAIL}.}
 \end{table}
 \vspace{\baselineskip}
 
 \subsubsection{Estimation of $h_T$ and calculating $h_M$}
-In this case, $h_T$ was estimated as $3.9$m by Professor Bokhove, by accessing the timestamp on a photo of the Aire just as it started to flood, and comparing this with the data obtained form the Environment Agency, to see the measured river height at this time. \\
+In Bokhove et al. [https://eartharxiv.org/stc7r/]\textcolor{red}{CITE}, $h_T$ was estimated to be 3.9m by accessing the timestamp on a photo of the Aire just as it started to flood, and comparing this with the data obtained form the Environment Agency, to see the measured river height at this time. \\
 
-From this, $h_M$ (the average of all river heights above $h_T$) was calculated by taking all data points above $h_T$, and finding the mean of these, to find the mean height of the flood: \\
+\textcolor{red}{wrong - talk about correct way of calculating hm }. From this, $h_M$ (the average of all river heights above $h_T$) was calculated by taking all data points above $h_T$, and finding the mean of these, to find the mean height of the flood: \\
 $$h_M = \frac{\sum_{i=1}^{k} h_k}{k} \text{ , for } h_k \geq h_T$$
 
 \subsubsection{Calculating FEV}
@@ -181,28 +227,33 @@ Phase 2 takes into account the entire catchment area of the River Aire, and comb
 
 Overall the scheme will provide greater protection to over 3000 properties to ensure the disastrous consequences of the 2015 floods will not happen to that extent again.\\
 
-\textcolor{red}{ADD UPDATE ON LEEDS ALLEVIATION PLAN}.
+\textcolor{red}{ADD UPDATE ON LEEDS ALLEVIATION PLAN - WHERE THEY ARE UP TO, IS IT GOING AS PLANNED, ANY CHANGES TO ORIGINAL PROPOSED PLAN}.
 
 \subsubsection{Square lake graph}
+
+Having found the FEV for a given flood, it can be hard to visualise just how much floodwater needs to be mitigated. A simple yet effective way to express this value is as a 2-metre deep 'square lake', with side lengths relevant to the value of the FEV, so that the volume of the square lake matches that of the flood-excess volume. The 2-metre depth was chosen as the average height of a human, rounded to the nearest metre for ease. This immediately makes it much easier to imagine how much flood water needs to be mitigated, and as the depth is minimal compared to the length of the sides, this allows us to view the lake from above as a square. This in turn makes it much simpler to allocate certain proportions of the flood-excess volume floodwater to different flood mitigation strategies \cite{8}.\\
+
+\textcolor{red}{****Include image of standard square lake template****}\\
+
 One scenario from the Leeds Flood Alleviation Scheme Phase 2 involves building flood walls of a height of varying heights in the city centre \cite{14}. Constraining water within the river channel would help to prevent flooding. It could, however, cause flooding further downstream, therefore the construction of a flood storage area upstream in the Calverley floodplain could counteract this. The capacity of the floodplain can also be increased by installing movable weirs, to temporarily store floodwater \cite{13}. A graphical representation for this scenario is as follows:
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.4]{airesquarelake1.png}
+\includegraphics[width=\textwidth]{airesquarelake1.png}
 \caption{Square lake graph for the Flood Walls {\&} Calverley storage scenario, with each mitigation measure represented as a proportion of the 'square lake'. The cost of each measure is shown under the respective arrows, along with how much of the FEV is mitigated by each measure.}
 \end{figure}
 
 This plot shows that 8{\%} of the flood-excess volume will be mitigated by the Calverley storage, with the remaining 92{\%} by the 1.6m flood walls. It also shows the cost-effectiveness of the mitigation strategy - \pounds0.75M per 1{\%} of FEV mitigated, which includes \pounds10M for the storage area, and \pounds65M for the flood walls.
 
-\subsection{The River Calder, West Yorkshire}
+\subsection{The River Calder, West Yorkshire (Boxing Day 2015)}
 The River Calder originates in Heald Moor and flows through the Pennines before joining the River Aire at Castleford \cite{15}. Over 6000 properties in and around the Calder Valley were flooded during the Boxing Day floods, causing a loss to Calderdale's economy of \pounds47 million. These floods prompted the Council to organise a live training event to prepare local teams for rescues during floods. The Calder Valley has flooded nearly every year of this decade, showing that new flood mitigation strategies would be welcomed \cite{16}.\\
 
 For the analysis of the River Calder flood, the monitoring station in Mytholmroyd was chosen. The average river height at Mytholmroyd in average weather conditions is between 0.43m and 2.80m, and as shown in the following quadrant plot, the highest ever recorded level of 5.65m occurred during in the Boxing Day flood \cite{17}.
 
 \subsubsection{Quadrant plot and analysis}
-The following quadrant graph (Fig.~3) was plotted in the same way as the graph for the River Aire, by scaling the data set and plotting each curve separately.  The data used wasprovided by the Environment Agency for the time period of 25th December to 29th December 2018, and again only height and time raw data were used.
+The following quadrant graph (Fig.~3) was plotted in the same way as the graph for the River Aire, by scaling the data set and plotting each curve separately.  The data used was provided by the Environment Agency for the time period of 25th December to 29th December 2018, and again only height and time raw data were used.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.65]{calderpythongraph.png}
+\includegraphics[width=\textwidth]{calderpythongraph.png}
 \caption{A quadrant plot for the 2015 Boxing Day flood of the River Calder at Mytholmroyd. The same relationships are shown in each quadrant as with the plot for the River Aire. A different threshold height was chosen and therefore the FEV is different to that of the Aire flood - the FEV is shown by the pink section of the graph.}
 \end{figure}
 
@@ -235,17 +286,16 @@ Natural flood management measures have also been considered in the action plan. 
 
 The final part of the scheme involves the awareness and resilience  of flooding of the local community. This includes signing up for flood warnings from the Environment Agency, raising awareness in the community of the dangers of flooding and having a team of volunteers available to help out during and after a flood \cite{18}. These measures together with the previously mentioned ones all work together to form a Flood Action Plan that can help mitigate the risk of damage caused by floods in Calderdale.
 
-\section{The River Don, Sheffield}
-The River Don begins in the Peak District and flows through South Yorkshire, before joining with the River Ouse at Goole. In June 2007 the country was hit with a period of vigorous rainfall which caused severe flooding, resulting in 13 deaths and damage to over 50,000 properties. Sheffield was one of the worst-affected cities, with 2 deaths occurring here, hundreds of people being evacuated and many having to be airlifted to safety from the rooftops of buildings \cite{19}.
+\subsection{The River Don, Sheffield (June 2007)}
+The River Don begins in the Peak District and flows through South Yorkshire, before joining with the River Ouse at Goole. In June 2007 the country was hit with a period of vigorous rainfall which caused severe flooding, resulting in 13 deaths and damage to over 50,000 properties. Sheffield was one of the worst-affected cities, with 2 deaths occurring here, hundreds of people being evacuated and many having to be airlifted to safety from the rooftops of buildings \cite{19}.\\
 
-\subsection{June 2007 flood}
 For the analysis of the 2007 flood in Sheffield, we looked at data from the monitoring station for the River Don at Hadfields. In standard weather conditions the river height here is between 0.32m and 0.53m, with the highest ever recorded level being 4.68m. This height was reached during this flood, showing just how disastrous it was and how flood mitigation strategies are needed to avoid an event of this magnitude happening again \cite{20}.
 
 \subsubsection{Quadrant plot and analysis}
 The following quadrant plot (figure 3) was plotted in R using the same methods as the previous quadrant graphs. The data was provided by the Environment Agency, and I used the raw data for height and time for the period of 25th June to 29th June 2007.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.65]{donpythongraph.png}
+\includegraphics[width=\textwidth]{donpythongraph.png}
 \caption{A quadrant plot for the June 2007 flood of the River Don at Hadfields. The relationships between height of the river, time, and flow of the river are shown in each quadrant. the FEV of this flood is shown by the pink section and $T_f$ corresponds to the length of the flood.}
 \end{figure}
 
@@ -272,7 +322,7 @@ The flood-excess volume for the threshold $h_T=2.9$m was approximated at 3.00M$m
 \subsection{Future/ongoing mitigation schemes in Sheffield}
 I am aware of a large scale flood alleviation plan that is ongoing in the area of Sheffield and Doncaster, which involves flood warning sirens and live training exercises for the rescue of people trapped by floods. I will research this in more detail and comment on the cost-effectiveness of my findings.
 
-\section{The River Irwell, Greater Manchester}
+\section{Application of FEV as a model - The River Irwell, Greater Manchester}
 Having recreated and conducted our own analysis of Professor Bokhove and Dr Kent's quadrant graphs for the floods of the River Aire, the River Calder and the River Don, we chose a different flood and applied the skills we have acquired to it. I decided to look at the River Irwell in Greater Manchester as it is the nearest large river to where I live. It also flooded on Boxing Day 2015, so I thought it would be interesting to compare this flood with those in Yorkshire.\\
 
 The River Irwell originates at a spring on Deerplay Moor, flows through Greater Manchester forming a boundary between Manchester and Salford, before it joins the River Mersey at Irlam. As it passes many large attractions in the city, such as the cathedral and the Manchester Arena, any flooding that occurs along the river would be extremely disruptive to the local area. \textcolor{red}{REFERENCE NEEDED HERE.}
@@ -284,13 +334,19 @@ For the analysis of this flood in 2015, I chose the monitoring station at Adelph
 
 Interestingly, the monitoring station for the River Irwell furthest downstream into Manchester City Centre is Lower Broughton, however this station has been offline since 26th December 2015, the day of the disastrous flood (https://www.gaugemap.co.uk/{\#}!Map/Summary/539/547). This appears to infer that this station was completely wiped out by the flood water, however further information of how this happened is not available online \textcolor{red}{EXPAND}.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{irwellmap.png}
+\caption{A map segment showing the course of the River Irwell through Salford and Manchester city centre. The position of the Adelphi Weir monitoring station is shown with the red marker. \textcolor{red}{REFERENCE GOOGLE MAPS}.}
+\end{figure}
+
 \subsubsection{Quadrant plot and analysis}
 In order to plot a quadrant graph showing the relationships between height, time and flow for this flood, I requested the raw data for these variables from the Environment Agency. I received the data for the whole year so had to extract the needed data for the duration of the flood, and convert it into a .csv file to be able to import it into R. Once I had done this, I was able to plot the graph using the same methods as the previous graphs.\\
 
 I estimated $h_T$ by looking at a variety of different sources. Firstly, Shoothill's GaugeMap estimates that minor flooding is possible in the area at 2m, and also that the recent highest level of the river here is 2.66m. From asking friends local to the area, I was informed that there was no flooding at this height. I further looked on news articles from the day of the 2015 flood and discovered that the outdoor area of the Mark Addy public house flooded by 3 to 4 feet of water by 3pm on 26th December 2015 \textcolor{red}{(https://www.manchestereveningnews.co.uk/news/greater-manchester-news/live-updates-rain-flooding-manchester-10652325)}. Relating this to the data received from the environment agency, the river height at this time was 3.592m. Therefore I took 3m as a threshold height for flooding, ensuring that the river will have burst its banks by this height. From here, I was able to estimate the mean height of flooding above the threshold as $h_M = 3.5$m. The quadrant plot is as follows:
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.65]{adelphiweirpythongraph.png}
+\includegraphics[width=\textwidth]{adelphiweirpythongraph.png}
 \caption{Quadrant plot for the June 2007 flood of the River Irwell at Adelphi Weir monitoring station, taking a threshold height for flooding at $h_T = 3m$.}
 \end{figure}
 
@@ -335,6 +391,13 @@ In February 2018, the construction of a \pounds10 million flood basin was comple
 \section{Summary and discussion}
 
 \section{Appendix}
+\subsubsection{Data scaling and plotting of graph}
+When first plotting the graph, my first instinct was to create four separate subplots and attempt to merge them together, however I soon realised that this was not feasible. Instead, as a group we decided the best way to move forward with our recreations of the graph would be to treat the data as one data set. We scaled the height ($h$) and time ($t$) data so that all the data points were between 0 and 1, allowing us to create one singular plot and add each curve to it separately. \\
+
+To plot the rating curve in the upper left quadrant, we originally plotted the raw data for height against the raw data for flow. This provided us with a similar curve, however we soon learnt that not all monitoring stations in the UK actually measure the flow of the river, and that the Environment Agency frequently get their flow data from a rating curve formula.\\
+
+In the lower left quadrant we simply plotted the raw data for height against time. The rating curve was plotted using the function explained in the following section, and the curve in the upper right quadrant shows the relationship between flow and time - this was plotted by entering the raw $h$ values into the rating curve function and plotting these against $t$. It is important to note here that the discharge curve, $Q$, is a composite of functions - $Q$ is a function of $h$, which is in turn a function of $t$. That is,
+$$Q(t)=Q(\bar{h})=Q(\bar{h}(t)).$$
 
 \begin{thebibliography}{}
 \bibitem{1}The Guardian, 2016: Major flooding in UK now likely every year, warns lead climate adviser. Available: https://www.theguardian.com/environment/2016/dec/26/major-flooding-in-uk-now-likely-every-year-warns-lead-climate-adviser-storm-desmond. Last accessed: 8th December 2018.
