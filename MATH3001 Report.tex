@@ -1,0 +1,689 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsfonts,verbatim}
+\usepackage[margin=1.5cm, vmargin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{commath}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{array}
+\usepackage{subcaption}
+\usepackage[labelfont=bf]{caption}
+\usepackage[none]{hyphenat}
+
+\def\N{\mathbb{N}}
+\def \Z {\mathbb{Z}}
+\def \Q {\mathbb{Q}}
+\def \R {\mathbb{R}}
+
+\usepackage{fancyhdr} 
+\pagestyle{fancy}
+\fancyhead{}         
+\fancyhead[C]{Assessing and communicating the mitigation of river floods} 
+\fancyhead[L]{MATH 3001}     
+\fancyhead[R]{2018/19} 
+
+\begin{document}
+
+\setlength{\parindent}{0cm}
+
+\begin{titlepage}
+\begin{center}
+
+
+\vspace{1cm}
+{\Huge \textbf{University of Leeds}}\\
+\vspace{0.5cm}
+{\huge \textbf{School of Mathematics}}
+
+\vspace{7cm}
+{\huge \textbf{MATH3001: Project in Mathematics}}\\
+\hrulefill
+
+\vspace{1cm}
+{\LARGE Using flood-excess volume to assess the Boxing Day 2015 flooding of the River Irwell and similar floods, and communicating the mitigation plans to policy makers and the general public}\\
+\vspace{5cm}
+\vfill
+{\large Student name: Mary Saunders}\\
+{\large Student ID: 201001740}\\
+\vspace{1cm}
+{\large Supervisors: O. Bokhove, T. Kent}\\
+
+\end{center}
+\end{titlepage}
+
+\tableofcontents 
+\noindent \hrulefill
+
+\newpage
+
+\section{Introduction}
+"Major flooding in the UK is now likely to happen every year but ministers still have no coherent long-term plan to deal with it" \cite{1}. A major flooding event is not something that everyone tends to worry about in the UK, however they appear to be occurring more and more frequently \cite{1}, with disastrous consequences. Extreme floods leave families without homes, businesses and sometimes more devastatingly, without family members. The 2015 Boxing Day floods alone caused damage costing billions of pounds across the North of England with the floods instigating two explosions, multiple fires and the partial destruction of a 200-year old listed building in Greater Manchester \cite{2}.  \\
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{pub.png}
+\captionsetup{width=.9\linewidth}
+\caption{Collapsed pub due to flooding: 200-year old The Waterside pub suffered structural damage and as a result, partially collapsed due to the flooding of the River Irwell on Boxing Day 2015 \cite{3}.}
+\end{figure}
+
+This project therefore aims to analyse flood data for various rivers provided by the Environment Agency, and to provide a cost efficiency analysis of both proposed and hypothetical mitigation plans. Overall the aim is to assist policy makers and the general public in ways that may help to reduce the damaging effects of extreme river events. One way to do this is to utilise the concept of flood-excess volume, defined in \S 3, whilst providing a methodology explained in a webpage for the following analyses to be recreated for any given flood.\\
+
+The mitigation of a flood involves the reduction of the flooding size and as a result of this, a reduction in the damage caused by the flood event. In order to mitigate this volume, it must be quantified: the analyses in this report will quantify this volume by means of flood-excess volume. Flood-excess volume is simply the volume of water causing the given flood at any point along the river \cite{4}. Once this value is known, a cost-effectiveness analysis of mitigation plans can be undertaken.\\
+
+There are four types of flooding that can be categorised as follows: \textbf{fluvial flooding} as a result of a river bursting its banks, \textbf{coastal flooding} caused by the behaviour of the tides, \textbf{pluvial (or surface water) flooding} which occurs when drainage systems cannot cope with a high volume of water, and \textbf{reservoir flooding} caused by problems with dams \cite{5}. This report focuses solely on fluvial, or river flooding.\\
+
+The main background work which has formed the basis of this report was carried out as a team comprising of A. Fielden, A. Chapman, S. Kennett, J. Willis and M. Saunders, however there are sections that were produced individually. A brief outline of this report is as follows, indicating which sections were completed as a team or independently:
+\begin{itemize}
+\item Approaches to the mitigation of floods, which is discussed in \S 2.
+\item An overview of the model of flood-excess volume is provided in \S 3, which has been produced individually by the author after study of the work already published by O. Bokhove, T. Kent and M. Kelmanson \cite{4}.
+\item Analysis of various great floods in Yorkshire in \S 4, produced by the team as a whole and based on the work in \cite{4} and \cite{28}. These findings were used as a verification of flood-excess volume as a model.
+\item An analysis of the Boxing Day 2015 flood of the River Irwell, researched and studied by the author, is included in \S 5.
+\item Assessments of past, proposed and hypothetical flood mitigation scenarios, along with their cost-effectiveness assessments, are provided in \S 6, analysed by the author. 
+\end{itemize}
+
+\newpage
+
+\section{Flood mitigation}
+
+\subsection{What is meant by flood mitigation?}
+Flooding is brought about by heavy rainfall which is nearly impossible to defend against. No matter how hard anyone tries to stop certain areas flooding, no one can change the weather. Therefore mitigation schemes are implemented in order to try to reduce the severity of the damage caused by flooding in a given area. Mitigation can be defined as planning actions and the installation of physical solutions in order to reduce the amount of flooding and its consequences in the future. This can be done through many different measures, from natural and structural solutions, to simply increasing local knowledge and awareness of how floods behave in the area. 
+
+\subsection{Examples of mitigation schemes}
+There are many approaches to flood mitigation in use, some more effective than others. Structural mitigation measures are put into place to counteract the flood event, and include: 
+\begin{itemize}
+\item \textbf{Dams} - flow-through dams are unlike reservoir dams, as they are built to change the flow of a river in flood conditions rather than store water. The spillway of the dam is found at the base of the riverbed and slows down the natural flow of the river when the water level rises above the spillway in a flood  \cite{6}.
+\item \textbf{Raising river banks/high flood walls, and river bed widening} - these methods increase the capacity of the river and therefore the amount of water it can hold before flooding occurs \cite{7}.
+\end{itemize}
+There are also multiple natural flood mitigation (NFM) strategies available, which alter, restore or make use of the surrounding landscape to decrease the risk of flooding \cite{8}. These ideas include:
+\begin{itemize}
+\item \textbf{Tree planting} - trees absorb some rainfall, albeit a minute amount (a mature tree is estimated to absorb or intercept around 1,400 gallons of water per year \cite{9}), and also directly intercept rainfall. Trees also encourage high absorption rates in the soil \cite{8}.
+\item \textbf{Buffer strips} - strips of grass can be placed in a network around lakes and rivers to stop the flow of unusual flood water \cite{10}.
+\end{itemize}
+Homeowners themselves can also implement certain mitigation schemes to reduce risk of damage from flooding. These include:
+\begin{itemize}
+\item \textbf{Flood insurance} - the purchase of home and contents insurance specific to damage caused by flooding ensures that homeowners are not as affected by the loss of any belongings.
+\item \textbf{Relocation} - a simple solution is to relocate out of the area at risk of flooding.
+\end{itemize}
+
+\subsection{Return periods}
+A \textit{return period} is a term used to estimate the probability of a certain event occurring. It can also be used as a term to measure the extremity of said event.  It is calculated using statistical analysis that provides the probability of an extreme event of given severity occurring in a given year \cite{11}. \\
+
+Assume we have a flood of a given magnitude with a return period of 100 years (sometimes phrased as a 1-in-100 year standard). A frequent misinterpretation is that this return period means this flood will occur only once in 100 years. The real meaning of a 100 year return period is that in any single year there is a 1\% (probability of 0.01) chance of this flood occurring. That is, over 200 years there could be two consecutive years in which a flood of this size occurs, or the two floods could occur in any two years over the 200 year time period. The two flood events could also occur within the same year, with a probability of $0.01 \times 0.01 = 0.0001$ or a 0.01\% chance of this happening \cite{11}. The lower the return period, the greater the probability of the event happening in any given year, for example a 10 year return period gives a probability \\
+
+of an event happening in a single year as 0.1, or a 10\% chance of happening, compared to a 1\% chance in a 100 year return period.\\
+
+Return periods are useful in the mitigation of floods as the probabilities allow policy makers to assess the risk of different magnitudes of floods, and therefore develop appropriate mitigation schemes. An example of this is the Thames Barrier in London: as one of the largest flood barrages in the world, it was created to protect central London from a flood with a 1000 year return period \cite{11}.\\
+
+\newpage
+
+\section{Flood excess-volume (--FEV)}
+\subsection{What is flood-excess volume?}
+In order to effectively plan and analyse flood mitigation schemes, the amount of flood water involved in a given flood needs to be known. To determine this the concept of \textit{flood-excess volume} will be introduced. Flood-excess volume (or FEV) is the volume of water (in units $m^3$) that causes the flood in question, which is the amount one wishes to mitigate or reduce to zero using one or more mitigation measures to prevent flood damage for an event within a given return period \cite{4}.\\
+
+As a first step, a suitable value is chosen as a threshold height of the river above which flooding occurs ($h_T$). This can be estimated from social media pictures and discussions of the local area at the same time of the flood and can be compared to readings obtained from the monitoring station at the same given time. Conversely, online resources such as Shoothill's GaugeMap \footnote{GaugeMap can be accessed at http://www.gaugemap.co.uk/. The data available here is collected from the Environment Agency, the Scottish Environment Protection Agency, Natural Resources Wales, the Irish Office of Public Works and Farson Digital Ltd, and includes the river height at frequent intervals throughout the year \cite{12}.}  can be used which provides heights of rivers above which flooding may occur in a given area. As there are multiple ways one can choose their value for $h_T$, there is a substantial amount of ambiguity involved in calculating the FEV as different threshold heights will output a different FEV value.\\
+
+\subsection{The rating curve}
+The flow of the river during a flood is required to calculate the FEV, however it is usually expensive and impractical to take measurements of this, unlike the measuring of the river height. Therefore, a relationship between the two must be established. This association is known as a rating curve and estimates the flow of a river from the river height $\bar{h}$:
+\begin{equation}\tag{3.1}
+Q = Q(\bar{h}),
+\end{equation} 
+where $Q$, measured in $m^3/s$, is the flow of the water, and $\bar{h}$ the corresponding river height \cite{4}. It is important to note here that the discharge curve, $Q$, is a composite of functions - $Q$ is a function of $\bar{h}$, which is in turn a function of $t$. That is, the rating curve implicitly is a function of time:
+\begin{equation}\tag{3.2}
+Q(\bar{h})=Q(\bar{h}(t))=Q(t).
+\end{equation}
+A rating curve is created by taking simultaneous measurements of river height and flow over a given period of time, then fitting a line of best fit to the resulting scatter plot. As very high and very low river heights occur infrequently, it can be hard to measure the flow rate for these stages. When high river heights do occur, flow cannot easily be measured due to flood conditions and the submerging of gauging stations \cite{13}. Low flows also present difficulties in the measuring. However, the estimation of both high and low flows are important in flood mitigation schemes and the managing of droughts respectively, and so it is of extreme importance that these can be evaluated accurately. Therefore methods of extrapolation must be used for the rating curve and heights that are outside the covered range \cite{14}. \\
+
+The rating curve has a typical equation with varying coefficients $a_j,b_j,c_j$ that can be provided in a rating change report by the Environment Agency upon request. It is as follows \cite{4}:
+\begin{equation}\tag{3.3}
+Q(\bar{h}) = c_j(\bar{h} - a_j)^{b_j}, \quad j= 1,...,m.
+\end{equation}
+
+$Q(\bar{h})$ has dimensions m$^3$/s, notated by $[Q(\bar{h})] =$ m$^3$/s, meaning that $c_j(\bar{h} - a_j)^{b_j}$ must also have the same dimensions as they are equal to each other. $\bar{h}$ has the dimension [$\bar{h}] = $ m, causing [$a_j]=$ m to allow one to be subtracted from the other. $b_j$ is dimensionless as it is a power, and since $c_j(\bar{h} - a_j)^{b_j}$ must have dimensions of m$^3$/s, this forces [$c_j] =  m^{3-b_j}$/s.\\
+
+The chosen $h_T$ can be converted into a value for the threshold discharge, $Q_T=Q(h_T)$ using (3.3). Then the FEV, or $V_e$, is defined as the integral over discharge for the duration $T_f$ of the flood, that is, it is the integral of $Q(t)-Q_T$ when $Q-Q_T > 0$, where $T_f$ is the time difference between the river height first crossing the threshold $h_T$ and dropping back below it \cite{4}. It is not possible to exactly calculate this integral, therefore approximations for FEV can be reached using certain formulae, which vary in accuracy. In order to define and understand the approximations, reference to Fig. 4 must be made. The flood-excess volume is represented as the shaded segment in the top right quadrant - to calculate the FEV, the area of this segment must be found. \\
+
+\subsection{Estimates of FEV}
+The total volume $V$ of water discharged at a particular point of a river over a given length of time is calculated approximately by 
+\begin{equation}\tag{3.4}
+V \approx \sum_{k=1}^{n} (Q(\bar{h}_k)) \Delta t,
+\end{equation}
+where $n$ is the number of values of $Q(\bar{h})$ known over the length of time, and $\Delta t$ is the time elapsed between $Q(\bar{h}_k)$ and $Q(\bar{h}_{k+1})$. As the FEV is the volume of water discharged once the river height is over the chosen threshold $h_T$, the first approximation of the FEV, $V_{e_1}$ is given by the summation
+\begin{equation}\tag{3.5}
+V_{e_1}=\sum_{k=1}^{n} (Q(\bar{h}_k)-Q(h_T)) \Delta t.
+\end{equation}
+
+$T_f$ has been defined as the duration of the flood, and $\Delta t$ as the time elapsed between each $Q(\bar{h})$ value, therefore it is clear that here $\Delta t = T_f/n$. This approximation increases in accuracy as the value of $\Delta t$ decreases, and therefore as $n \rightarrow \infty$, $\Delta t \rightarrow 0$ and this estimation of FEV becomes the exact integral of the curve $Q(\bar{h})$ above $Q_T$ over the duration $T_f$, ie. the exact value of the flood-excess volume. Hence this is the most accurate value for the FEV in the case where $n$ is sufficiently large for a given flood \cite{4}. This value of FEV is represented by the shaded area in Fig. 4. \\
+
+In order to calculate the FEV using this method, data for the desired flood must first be obtained from sources such as the Environment Agency, with regards to river height, flow rate and the rating curve coefficients. River levels are checked at regular time intervals during the year, for example every 15 minutes at several stations, by a large network of river gauges throughout the country that measure the river height at the gauge location. The data recorded by these monitoring stations is available freely upon request by the Freedom of Information Act 2000. \\
+
+If the river height measurements $\bar{h}_k$ and the rating curve for the chosen river are not known, a simplistic approximation can be done by 'eye integration'. Assume we have a value $Q_m$, defined as the mean discharge of the flood period $T_f$. Then, a second estimation of FEV, $V_{e_2}$, can be defined as
+\begin{equation}\tag{3.6}
+V_{e_2} = T_f(Q_m - Q_T),
+\end{equation}
+where $Q_T$ is the discharge corresponding to the threshold height $h_T$ \cite{4}. Graphically, this value can be seen as the area of the black rectangle in Fig. 4. This evaluation is less accurate as it requires the mean height and mean flow values of the flood duration to be approximated. \\
+
+A third estimate $V_{e_3}$ is required for situations where the rating curve is not known and river height measurements are not automatically taken, however discharge rates are required to be estimated for flood mitigation purposes. When only a threshold height $h_T$, the flood duration $T_f$, the peak river level $h_{max}$ and its corresponding flow rate $Q_{max}$ are known, one can obtain a mean river height $h_m$ during $T_f$ with the following calculation: 
+\begin{equation}\tag{3.7}
+h_m \approx \frac{(h_{max}+h_T)}{2}.
+\end{equation}
+From this, estimate values of the corresponding flow rates for $h_T$ and $h_m$, $Q_T$ and $Q_m$, can be found using linear interpolation:
+\begin{equation}\tag{3.8}
+Q_T \approx \frac{h_T}{h_{max}}Q_{max}
+\end{equation}
+and
+\begin{equation}\tag{3.9}
+Q_m \approx \frac{h_m}{h_{max}}Q_{max}.
+\end{equation}
+Therefore an approximation of (3.4) can be made using equations (3.8) and (3.9), giving the final estimate of FEV in the following way:
+\begin{equation}\tag{3.10}
+V_{e_3} = T_f \frac{Q_{max}}{h_{max}}(h_m - h_T).
+\end{equation}
+
+Once the flood-excess volume of a flood has been quantified, this value can be used in assessing proposed and hypothetical schemes for the mitigation of flood water to decrease damage, and a cost efficiency assessment can be undertaken to calculate the price per percentage of FEV mitigated for each scenario. In order to use the concept of FEV for further analysis, the team must first verify it as a model to ensure the end results achieved are reliable.\\
+
+\newpage
+
+\section{Verification of FEV as a model - Yorkshire floods}
+The first aim of the team was to provide verification of the work of O. Bokhove, T. Kent and M. Kelmanson \cite{4}. Recreation of their quadrant plots allowed the team to substantiate their provided results for the flood-excess volume values of specific floods, giving confirmation of their general procedure. The reasoning behind this task was to provide more reliability to their results through learning and affirmation processes, with a clear end result of an automated method  in a chosen program to be used for different floods in mind. The verification of this model as a team also enables the results of the author to bear some trustworthiness. This task was completed as a group under the supervision and guidance of O. Bokhove and T. Kent.
+
+\subsection{The River Aire, Leeds (Boxing Day 2015)}
+The River Aire begins its course at Malham Tarn, a lake in the Yorkshire Dales, and flows through Leeds before it joins the River Ouse in the village of Airmyn \cite{15}. Intense rainfall over the Christmas period in 2015 caused the Aire to break its banks and damage 3,355 properties, including homes and businesses. Prior to this, Leeds suffered a catastrophic flood in 1866. Despite the water levels only reaching a third of the height of the 2015 flood water levels, 20 people still lost their lives. The significant increase in water levels during the 2015 flood massively highlighted Leeds' need for more effective flood defences \cite{16}. The difference in height of the river during these two floods can be seen in Fig. 2, highlighted by the plaques showing the maximum height reached in each flood.\\
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.33]{plaques.png}
+\captionsetup{width=.9\linewidth}
+\caption{Commemorative plaques at Leeds Industrial Museum recognising the height reached by the water of Leeds' two most disastrous floods. The Boxing Day 2015 plaque was unveiled on 13th May 2016 by Leeds City Council Councillor Judith Blake. Standing at 5 feet and 6 inches, the author is pictured beside the plaques to provide a sense of scale. This demonstrates the height the respective floods reached on the museum walls. When considering the flood levels, the fact that the River Aire runs its course approximately 8 feet below ground level of where the author is stood.}
+\end{figure}
+
+\subsubsection{Recreation of the quadrant plot}
+For the analysis of the Boxing Day flood in Leeds, the monitoring station for the River Aire at Armley was used. The average water depth at Armley in standard weather conditions is between 0.28m and 0.95m, and as can be seen in the following analysis, the Aire reached its highest ever recorded level of 5.21m during the Boxing Day flood \cite{17}. This figure alone shows how catastrophic and damaging the flood was. \\
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{airefloodriskmap.png}
+\captionsetup{width=.9\linewidth}
+\caption{Flood risk map of Leeds. The location of the monitoring station at Armley is indicated by the yellow marker. The light blue and dark blue shaded areas of the map indicate the areas at risk of minor and major flooding respectively, and the white and blue dotted region indicates a flood storage area \cite{18}.}
+\end{figure}
+
+Having received data from O. Bokhove and T. Kent outlining the height ($m$) and the flow ($m^3/s$) for the River Aire over the period of the flood, together with the most recent rating change report, a quadrant graph showing the different relationships between the variables was plotted (Fig. 4). River level measurements at regular 15 minute intervals between 25th December and 30th December 2015 were used here. Note that flow means the volume of water that passes a specific point per second. Here and elsewhere, the program Python was used to plot the graphs.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{airepythongraph.png}
+\captionsetup{width=.9\linewidth}
+\caption{A quadrant plot for the 2015 Boxing Day flood of the River Aire at Armley. The upper left quadrant contains the rating curve, which was calculated from (3.3) using the coefficients in Table 1, along with its linear approximation (the dashed line). The lower left and upper right quadrants display the river height ($\bar{h}$ (m)) and river flow (Q (m$^3$)) respectively for the duration of the flood, which was calculated to be $T_f =32$hrs. The pink shaded region represents the FEV calculated to be $V_{e_1} \approx 9.34\text{Mm}^3$, whilst the black rectangle represents a less accurate estimation of the FEV, $V_{e_2} \approx 8.51\text{Mm}^3$, both corresponding to a chosen threshold height $h_T = 3.9$m (seen by a dashed line, along with its corresponding threshold flow rate).} 
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c | c | c | c | c | c}
+j & $h_{j-1}$ & $h_j$ & $c_j$ & $b_j$ & $a_j$ \\
+ & [m] & [m] & [$\text{m}^{3-b}/$s] & [-] & [m]\\
+\hline
+1 & 0.2 & 0.685 & 30.69 & 1.115 & 0.156 \\
+2 & 0.685 & 1.917 & 27.884 & 1.462 & 0.028 \\
+3 & 1.917 & 4.17 & 30.127 & 1.502 & 0.153 \\
+\end{tabular}
+\captionsetup{width=.9\linewidth}
+\caption{The coefficients $c_j, b_j, a_j$ for the rating curve function for different values of $\bar{h}$ for the River Aire at Armley, obtained from the Environment Agency's 2016 Aire at Armley Rating Change Report, along with the height threshold $h_0=0.2$m \cite{4}. These values are needed to plot the rating curve as seen in Fig. 4.}
+\end{table}
+\vspace{\baselineskip}
+
+\newpage
+
+\subsubsection{Estimation of $h_T$ and FEV}
+For verification of this model to be valid, the same threshold height $h_T$ must be taken. In \cite{4}, $h_T$ was estimated to be 3.9m by Bokhove et al. by accessing the timestamp on a photo of the Aire just as it started to flood, and comparing this with the data obtained from the Environment Agency, to determine the measured river height at this time. \\
+
+From this, $h_m$ (the average of all river heights $\bar{h}_k$ (where $k$ is the number of data points collected from 1 to N) above $h_T$) was calculated by taking all data points for the river height above $h_T$, and finding the mean of these, to give the mean height of the flood: \\
+\begin{equation}\tag{4.1}
+h_m = \frac{\sum_{k=1}^{N} h_k}{k}, \quad \text{for } h_k \geq h_T.
+\end{equation}
+
+Taking $h_T = 3.9$m, by (4.1) $h_m = 4.77$m. The provided data of the river levels allowed the group to decide the value of $T_f$. The flood duration was seen to be 32 hours, by examining when the river height rose above and then fell below the chosen threshold height 3.9m - from 10:15am on 26/21/15 to 6:15pm on 27/12/15 (note that in any formulae, $T_f$ must be given in seconds as per the units of the flow data). By (3.3) and using the values in Table 1, values of $Q_T$ and $Q_m$ were calculated to be 219.09$\text{m}^3/\text{s}$ and 292.99$\text{m}^3/\text{s}$ respectively. \\
+
+By (3.10), a first and least accurate approximation of FEV was calculated as such:
+$$V_{e_3} \approx 6.61 \text{Mm}^3.$$
+
+
+Then, by (3.6) a second approximation of FEV was able to be calculated:
+$$V_{e_2} \approx 8.51 \text{Mm}^3.$$
+
+This value of the FEV is represented by the area of the black rectangle in Fig. 3. \\
+
+A more accurate estimation of FEV was then made. By (3.5), the FEV integrated to
+$$V_{e_1} \approx 9.34\text{Mm}^3,$$
+where this value was reached by using a code written in Python. This value is consistent with the value reached in \cite{4} and therefore provides verification of this general model, and is represented by the area of the shaded region between the curve $Q(\bar{h})$ and the dashed line indicating the threshold flow $Q_T$. The values of $T_f$, $h_m$, $Q_T$ and $Q_m$ are also accurate when taken to two decimal places. These results further show the accuracy of the different approximate formulae stated in \S 3 for FEV - equation (3.6) provides a value for the FEV which is 91.1\% of the more accurate value given by equation (3.5). In other contexts, an 8.9\% difference in accuracy may not make much difference, but taking into account the units of FEV, $\text{Mm}^3$, the 0.83$\text{Mm}^3$ difference is significant. To put this value into perspective, if 0.83$\text{Mm}^3$ of water was to flood a certain area to a height of 1m, the flood would cover the size of around 116 football pitches \cite{19}. Moreover, (3.10) provides an estimate of $V_e$ that is just 70.1\% of the total FEV from the more accurate estimation. Therefore for the remainder of the report, equation (3.5) will be used to estimate FEV unless expressed otherwise.\\
+
+\newpage
+
+\subsubsection{Flood mitigation schemes in Leeds}
+Since the December 2015 floods in Leeds, the Leeds Flood Alleviation Scheme has been put into place by Leeds City Council in partnership with the Environment Agency, and has been split into two phases. Phase I began in January 2015 and was completed in October 2017, costing \pounds50 million, and included movable weirs, merging canals and rivers, and long stretches of flood walls, which together protect the city centre and areas downstream from a flood with a 100 year return period \cite{20}. It has provided protection to 3000 homes and 10km of waterfront \cite{21}.\\
+
+Phase II takes into account the entire catchment area of the River Aire, and combines natural flood management strategies with structural mitigation measures further upstream than Phase I, to reduce the risk of flooding downstream. It aims to protect Leeds from future flood events with a 200 year return period. The measures currently under discussion include the creation of new woodland areas, the construction of flood storage areas, and the removal of objects along the River Aire which may currently cause higher than necessary river levels \cite{22}. The scheme aims to protect a 14km stretch of the River Aire and around 2000 properties. Key elements of the scheme include extra flood water storage at Calverley, higher flood walls and pumping stations that allow surface water to be pumped back into the river during a flood \cite{23}. Some of the scenarios will be analysed with a cost efficiency assessment being completed in \S 4.1.5.\\ 
+
+Important to note here is that the Boxing Day 2015 flood of the River Aire has a return period of 200+ years, meaning that both of these mitigation schemes will not protect fully Leeds against another flood of this severity \cite{4}.\\
+
+\subsubsection{Graphical representation of FEV and mitigation scenarios}
+
+Having determined the FEV for a given flood, it can be hard to visualise just how much flood water needs to be mitigated. A simple yet effective way to express this value is as a 2-metre deep 'square lake', with side lengths relevant to the value of the FEV, so that the volume of the square lake matches that of the flood-excess volume. The 2-metre depth was chosen as the average height of a human, rounded to the nearest metre for ease. This immediately makes it much easier to imagine how much flood water needs to be mitigated, and as the depth is minimal compared to the length of the sides, this allows us to view the lake from above as a square. This in turn makes it much simpler to allocate certain proportions of the flood-excess volume flood water to different flood mitigation strategies \cite{24}. It can also help to visualise how much of a local area could be flooded by this amount of flood water. Fig. 5 shows a basic example of a 'square lake', with side lengths of 2150m which results in the volume of this matching that of the FEV found for the River Aire flood in \S 4.1.3.\\
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{emptyairesquarelake.png}
+\captionsetup{width=.9\linewidth}
+\caption{A graphical interpretation of the FEV. The FEV is modelled as a 'square lake' in order to make it easier to visualise the extent of the flood water. A depth of 2m is chosen as the average height of a human for ease. From this depth and the FEV value $V_e \approx 9.34$Mm$^3$ the side length is calculated as 2150m.}
+\end{figure}
+
+One scenario from the Leeds Flood Alleviation Scheme Phase II involves building flood walls of varying heights in the city centre \cite{23}, which would constrain water within the river channel and so would help to prevent flooding. It could, however, cause flooding further downstream, therefore the construction of a flood storage area upstream in the Calverley floodplain could counteract this. The capacity of the floodplain can also be increased by installing movable weirs to temporarily store flood water \cite{23}. A graphical representation for this scenario along with the costs associated with each mitigation method can be seen in Fig. 6 \cite{4}.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{airesquarelake1.png}
+\captionsetup{width=.9\linewidth}
+\caption{S1 shows a graphical representation for the Flood Walls {\&} Calverley storage scenario, with each mitigation measure represented as a proportion of the 'square lake'. The cost of each measure is shown under the respective arrows, along with how much of the FEV is mitigated by each measure, and the cost per percentage of the FEV mitigated.}
+\end{figure}
+
+Costing \pounds 10M to mitigate 8\% of the FEV, the Calverley storage costs \pounds 1.25M per percentage of the FEV mitigated. The high floods walls, at \pounds 65M for 92\% of the FEV mitigated, costs \pounds 0.707M per percentage mitigated, a much lower cost than that of the storage basin. Combined, this flood alleviation scenario has a total cost of \pounds 0.75M per percentage of the FEV mitigated by it.\\
+
+\subsection{The River Calder, West Yorkshire (Boxing Day 2015)}
+The River Calder originates in Heald Moor and flows through the Pennines before joining the River Aire at Castleford \cite{25}. Over 6000 properties in and around the Calder Valley were flooded during the Boxing Day floods, causing a loss to Calderdale's economy of \pounds47 million. These floods prompted the Council to organise a live training event to prepare local teams for rescues during floods. The Calder Valley has flooded nearly every year of this decade, demonstrating that new flood mitigation strategies would be welcomed \cite{26}.\\
+
+For the analysis of the River Calder flood, the monitoring station in Mytholmroyd was chosen. The average river height at Mytholmroyd in average weather conditions is between 0.43m and 2.80m, and as shown in the following quadrant plot, the highest ever recorded level of 5.65m occurred during in the Boxing Day flood \cite{27}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{calderfloodriskmap.png}
+\captionsetup{width=.9\linewidth}
+\caption{Flood risk map showing the area of Mytholmroyd. The monitoring station looked at is indicated by the yellow marker. The light blue and dark blue show the areas at risk of minor and major flooding respectively. The white region with blue dots indicates a flood water storage area \cite{18}.}
+\end{figure}
+
+\newpage
+
+\subsubsection{Recreation of the quadrant plot}
+During the verification of the result for the River Aire, an automated code was written in Python which enabled the team to simply input the data for future floods and be presented with a value for the FEV by equation (3.5). The quadrant graph in Fig. 8 was plotted in this way.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{calderpythongraph.png}
+\captionsetup{width=.9\linewidth}
+\caption{A quadrant plot for the 2015 Boxing Day flood of the River Calder at Mytholmroyd. The rating curve is displayed in the upper left quadrant, calculated with equation (3.3) and the coefficient values outlined in Table 2. A dashed line is included as its linear approximation. The lower left and upper right quadrants show the height of the river $\bar{h}$ (m) and the flow $Q(\bar{h})$ throughout the duration of the flood, which was calculated to be $T_f =8.25$hrs. From the chosen threshold height $h_T=4.5$m shown by a dashed line, the FEV was calculated by equation (3.5) to be $V_{3_1} \approx 1.65\text{Mm}^3$ and is represented by the pink shaded area. The area of the black rectangle shows a very slightly less accurate estimate, $V_{e_2} \approx 1.64 \text{Mm}^3$.}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c | c | c | c | c | c}
+j & $h_{j-1}$ & $h_j$ & $c_j$ & $b_j$ & $a_j$ \\
+ & [m] & [m] & [$\text{m}^{3-b}/$s] & [-] & [m]\\
+\hline
+1 & 0 & 2.107 & 8.459 & 2.239 & 0.342 \\
+2 & 2.107 & 3.088 & 21.5 & 1.37 & 0.826 \\
+3 & 3.088 & 5.8 & 2.086 & 2.515 & -0.856 \\
+\end{tabular}
+\captionsetup{width=.9\linewidth}
+\caption{The different values of the coefficients $c_j, b_j, a_j$, as well as $h_0 =0$ needed to calculate the rating curve function seen in Fig. 8 for different values of $\bar{h}$ for the River Calder at Mytholmroyd \cite{28}.}
+\end{table}
+
+\newpage 
+
+\subsubsection{Estimation of $h_T$ and FEV}
+$h_T$ was estimated in \cite{28} as 4.5m, the value used in this verification. From here and using (3.5), the FEV was calculated to be
+$$V_{e_1} \approx 1.65\text{Mm}^3,$$
+which is consistent with the result in \cite{28} and therefore verifies their work. This value is shown by the area of the shaded region in Fig. 8. This FEV is much smaller than that of the River Aire, but this is not unexpected as the flood duration for the Calder, $T_f = 8.25$ hours, is much shorter than the Aire ($T_f =$32 hours). The values calculated for $h_m$, $Q_T$ and $Q_m$ are also consistent with those in \cite{28} providing further verification of the method used by the group.\\
+
+\subsubsection{Future/ongoing mitigation schemes in Calderdale}
+Following the devastating floods of 2015, the Calderdale Flood Action Plan was put into place in January 2016 by the Calderdale Flood Partnership together with the Environment Agency. Part of this scheme involves the strengthening of defences, and looks at using reservoirs and canals to store flood water and therefore reduce the risk of flooding. The sewer networks in the risk areas are also under observation by Yorkshire Water, as flooding has occurred here in the past and could potentially be prevented in the future \cite{29}.\\
+
+Natural flood management measures have also been considered in the action plan. Grants are available for farmers in Calderdale to carry out plans for NFM schemes, including tree planting, the temporary storage of water and considering the management of farmland to ensure more water is absorbed \cite{29}.\\
+
+The final part of the scheme involves the awareness and resilience  of flooding of the local community. This includes signing up for flood warnings from the Environment Agency, raising awareness in the community of the dangers of flooding and having a team of volunteers available to assist during and after a flood \cite{29}. These measures together with the previously mentioned, all work together to form a Flood Action Plan that can help mitigate the risk of damage caused by floods in Calderdale.\\
+
+One hypothetical flood mitigation scheme is shown in Fig. 9, and involves different NFM measures \cite{28}. Using part of the volume of reservoirs to store flood water will mitigate 40\% of the FEV, and at a cost of \pounds 30M, this equates to a range of \pounds [0.56, 1.13]M per percentage of the FEV mitigated. The proposed increase in tree coverage across the catchment area aims to mitigate 3.75\% of the FEV and at a cost of \pounds 5M, each percentage of the FEV mitigated gains a cost in the range \pounds [1, 2]M. Other NFM measures will mitigate 6.36\% of the FEV. With a cost of \pounds 5.38M, the cost per percentage of FEV is \pounds [0.63, 1.27]M. Therefore in total the whole scheme costs \pounds 40.38M, and yields a cost per percentage of FEV mitigated in the range of \pounds [0.61, 1.21]M. It is important to note that this scheme does not mitigate the full 100\% of the FEV, therefore other structural mitigation techniques should be considered.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.8]{caldersquarelake.png}
+\captionsetup{width=.9\linewidth}
+\caption{Graphical representation of the hypothetical flood mitigation scheme for the River Calder outlined in \S 4.2.3, including the use of reservoirs, tree planting and other NFM measures. 50.11\% of the FEV is mitigated for a total cost of \pounds 40.38M.}
+\end{figure}
+
+\subsection{The River Don, Sheffield (June 2007)}
+The River Don begins in the Peak District and flows through South Yorkshire before joining with the River Ouse at Goole. In June 2007 the country was hit with a period of vigorous rainfall which caused severe flooding, resulting in 13 deaths and damage to over 50,000 properties. Sheffield was one of the worst-affected cities, with 2 deaths occurring here, hundreds of people being evacuated and many having to be airlifted to safety from the rooftops of buildings \cite{30}.\\
+
+For the analysis of the 2007 flood in Sheffield, the monitoring station at Hadfields was chosen for the River Don. In standard weather conditions the river height here is between 0.32m and 0.53m, with the highest ever recorded level being 4.68m. This height was reached during this flood, demonstrating its severity and how flood mitigation strategies are required to avoid an event of this magnitude recurring \cite{31}.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{donfloodriskmap.png}
+\captionsetup{width=.9\linewidth}
+\caption{Flood risk map of the area surrounding the monitoring station for the River Don at Hadfields. The location of this station is indicated by the yellow marker. The light blue and dark blue shaded regions represent the areas at risk of minor and major flooding respectively \cite{18}.}
+\end{figure}
+
+\subsubsection{Recreation of the quadrant plot}
+Fig. 11 was plotted using the automated Python code applied previously.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{donpythongraph.png}
+\captionsetup{width=.9\linewidth}
+\caption{A quadrant plot for the June 2007 flood of the River Don at Hadfields. The rating curve and its linear approximation can be seen in the upper left quadrant, calculated using equation (3.3) and the coefficients shown in Table 3. The river heights $\bar{h}$ and the flow rates $Q(\bar{h})$ across the flood duration, calculated as $T_f = 13.5$hrs, can be seen in the lower left and upper right quadrants respectively. Using (3.5) the FEV has been calculated as $V_{e_1} \approx 3.00\text{Mm}^3$ and can be seen as the area of the pink shaded region. The black rectangle provides a rough estimate of the FEV by equation (3.6) and yields $V_{e_2} \approx 3.00 \text{Mm}^3$. Both estimates of FEV have been calculated using the threshold height chosen as $h_T = 2.9$m, shown by a dotted line.}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c | c | c | c | c | c}
+j & $h_{j-1}$ & $h_j$ & $c_j$ & $b_j$ & $a_j$ \\
+ & [m] & [m] & [$\text{m}^{3-b}/$s] & [-] & [m]\\
+\hline
+1 & 0 & 0.52 & 78.4407 & 1.7742 & 0.223 \\
+2 & 0.52 & 0.931 & 77.2829 & 1.3803 & 0.3077 \\
+3 & 0.931 & 1.436 & 79.5956 & 1.2967 & -0.34 \\
+4 & 1.436 & 3.58 & 41.3367 & 1.1066 & -0.5767 \\
+\end{tabular}
+\captionsetup{width=.9\linewidth}
+\caption{The coefficients $c_j, b_j, a_j$ and $h_0 =0$ for different heights of $\bar{h}$ needed to calculate the rating curve shown in Fig. 10 for the River Don at Hadfields \cite{27}.}
+\end{table}
+
+\subsubsection{Estimation of $h_T$ and FEV}
+\cite{27} provides an estimation of $h_T$ as 2.9m, and this value was used in the following calculations of FEV estimates in order to verify the work in \cite{27}. Using (3.5), the FEV was calculated as 
+$$V_{e_1} \approx 3.00\text{Mm}^3,$$
+a value represented by the pink shaded region in Fig. 11. This estimate is consistent with that in \cite{27} and therefore allows \cite{27} to bear more trustworthiness, as the results have been reproduced accurately. The area of the black rectangle represents an estimate of FEV provided by (3.6), that is
+$$V_{e_2} \approx 3.00\text{Mm}^3,$$
+a very accurate approximation given the level of accuracy of the equation used. The values of $T_f$, $h_m$, $Q_T$ and $Q_m$ calculated were also seen to be consistent with those in \cite{27}, further verifying the work.\\
+
+Having verified the works of O. Bokhove, T. Kent and M. Kelmanson, the team felt sufficiently prepared to use the investigated methods to apply FEV as a model to their own independent research.
+
+\newpage 
+
+\section{Application of FEV as a model - The River Irwell, Greater Manchester}
+Having recreated and verified the analysis by O. Bokhove, T. Kent and M. Kelmanson in \cite{4} and \cite{27} as a team under the supervision of O. Bokhove and T. Kent, the team members individually chose a river to apply the model of flood-excess volume to and provide their own analysis of said river. An analysis of the River Irwell in Greater Manchester was completed solely by the author, the motivation being the proximity in which the author lives to the discussed river, and an added interest in researching the economic damage to a large city as a result of flooding. As the River Irwell also flooded on 26th December 2015 causing damage to thousands of properties \cite{32}, it may be of interest to examine how the flooding in Greater Manchester compared to that in Yorkshire. A verification of the author's findings was provided by A. Chapman and is included in \S 5.1.3.\\
+
+The River Irwell originates at a spring on Deerplay Moor, flows through Greater Manchester forming a boundary between Manchester and Salford, before it joins the River Mersey at Irlam \cite{33}. As it passes many large attractions in the city, such as the cathedral and the Manchester Arena, any flooding occuring along the river would be extremely disruptive to the local area, and has proved to be in the past \cite{34}. In 2015 a large flood of the River Irwell left what appeared to be a sandy beach nearby the Lowry Hotel in Salford \cite{35}.
+
+\subsection{Boxing Day 2015 flood}
+The heavy rainfall during Christmas 2015 caused the River Irwell to break its banks, creating major flooding in Greater Manchester which left behind devastation. Over 2,200 properties were flooded and 30,000 were left without power, with damage to the local infrastructure costing \pounds11.5 million \cite{36}. \\
+
+The monitoring station at Adelphi Weir on the River Irwell was chosen due to its close proximity to Manchester city centre, allowing the effects on the busiest areas of the city to be studied during the flood in 2015. In normal weather conditions the height of the river at this station is between 0.15m and 0.63m, a very shallow section of the river. The highest ever recorded height is 3.86m, which was reached during this flood \cite{37}. The difference between the average height and the highest reached demonstrates the extent of the flood and just how disastrous it was. \\
+
+It is interesting that the monitoring station at Lower Broughton, which is situated further downstream towards the city centre, has been offline since the day of the disastrous flood \cite{38}. This suggests that the station was completely obliterated by the flood water. Unfortunately, further information regarding this is not available online.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{floodbasinsmap.png}
+\captionsetup{width=.9\linewidth}
+\caption{Flood risk map of Salford and Manchester city centre. The location of the Adelphi Weir monitoring station is indicated by the red dot. The Littleton Road and Castle Irwell flood basins (\S6.1.1) are indicated by the red arrows. The light blue and dark blue shaded areas show regions which are at risk of minor and major flooding respectively. The striped regions show areas protected by flood defences - presumably by the aforementioned flood basins \cite{18}.}
+\end{figure}
+
+\subsubsection{Creating the quadrant plot}
+Email correspondence \cite{39} with the Environment Agency provided the author with river height measurements and rating curve information of the River Irwell for the duration of the Boxing Day 2015 flood, in order to plot the graph shown in Fig. 13. 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{adelphiweirpythongraph.png}
+\captionsetup{width=.9\linewidth}
+\caption{Quadrant plot for the December 2015 flood of the River Irwell at Adelphi Weir monitoring station, taking a threshold height for flooding at $h_T = 3$m, indicated by the dotted line. A rating curve and its linear approximation can be seen in the upper left quadrant, calculated by equation (3.3) and the coefficients provided by the Environment Agency in Table 4. Views of the river heights $\bar{h}$ and its flow rates $Q(\bar{h})$ across the flood duration $T_f =10.00$hrs can be seen in the lower left and upper right quadrants respectively. An estimation of the FEV was calculated using (3.5) an d $h_T$ to yield $V_{e_1} \approx 6.58\text{Mm}^3$ and can be represented by the area of the pink shaded region. The black rectangle has an area representative of an estimate $V_{e_2} \approx 6.57\text{Mm}^3$ by (3.6), which appears to be very accurate in this case.}
+\end{figure}
+
+\subsubsection{The rating curve}
+\begin{table}[H]
+\centering
+\begin{tabular}{c | c | c | c | c | c}
+j & $h_{j-1}$ & $h_j$ & $c_j$ & $b_j$ & $a_j$ \\
+ & [m] & [m] & [$\text{m}^{3-b}/$s] & [-] & [m]\\
+\hline
+1 & 0.158 & 0.815 & 75.298 & 1.5728 & 0 \\
+2 & 0.815 & 2.100 & 75.224 & 1.8282 & -0.024 \\
+\end{tabular}
+\captionsetup{width=.9\linewidth}
+\caption{The coefficients $c_j, b_j, a_j$ and $h_0 = 0.158$ needed to calculate the rating curve function for different values of $\bar{h}$ for the River Irwell at Adelphi Weir, shown in Fig. 12 \cite{38}. For $\bar{h}<0.158$ and $\bar{h}>2.10$, extrapolation of the rating curve was required and the coefficients for $j=1$ and $j=2$ were used respectively.}
+\end{table}
+
+\newpage
+ 
+\subsubsection{Estimation of $h_T$ and FEV}
+A threshold height $h_T$ was estimated using a variety of different sources. Firstly, Shoothill's GaugeMap estimates that minor flooding is possible in the area at 2m. However, with the author's knowledge of the local area, it is known that no flooding occurred when levels reached 2.66m \cite{40}. News articles from the day of the flood event provided information that the outdoor area of the Mark Addy public house flooded by 3 to 4 feet of water by 3pm on 26th December 2015 \cite{41}. Relating this to the data received from the Environment Agency, the river height at this time was 3.592m. Therefore 3m was taken as a threshold height for flooding, ensuring that the river will have burst its banks by this height. From this $h_T$ and equation (4.1), the mean height of flooding above the threshold was able to be estimated as $h_m = 3.5$m. \\
+
+As river gauge data was provided by the Environment Agency, estimates of FEV will be calculated using equations (3.6) and (3.5). By (3.3) and using the rating curve coefficients in Table 4, $Q_T$ was calculated to be 568.8m$^3$/s and $Q_m$ as 7511.5m$^3$/s.\\
+
+Equation (3.5) with a chosen threshold height of $h_T$ produces
+$$V_{e_1}(h_T=3.00\text{m}) \approx 6.58 \text{Mm}^3,$$
+which is the value of the FEV which will be used in the analysis of flood mitigation schemes for this river in \S 5.3. This value for the FEV can be seen in Fig. 13 as the area of the shaded pink region between the curve $Q=Q(\bar{h})$ and the dashed line representing $Q_T$. \\
+
+Another approximation of FEV is given by the less accurate equation (3.10) as 
+$$V_{e_2} (h_T = 3.00m) \approx 6.58 \text{Mm}^3,$$
+which is clearly the same value as $V_{e_1}$, and is represented by the black rectangle in Fig. 13. This is an accurate estimation of the flood-excess volume, as compared to the River Aire where $V_{e_2}$ was calculated to be 91.1\% of $V_{e_1}$.\\
+
+A least accurate estimation of $V_e$ for this flood can be calculated by equation (3.10) as follows:
+$$V_{e_3} \approx 4.19 \text{Mm}^3,$$
+which is just 63.7\% of the best estimate of $V_e$, $V_{e_1}$. Compared to the flood of the River Aire, where (3.10) yielded an estimate of $V_{e_3}$ that was 70.1\% of $V_{e_1}$, this shows how the accuracy of estimating $V_e$ using (3.10) and (3.6) can fluctuate. Therefore, this validates the reasoning behind using (3.5) to calculate $V_{e_1}$ as the best estimate of $V_e$ wherever possible.\\
+
+A verification of the author's results by A. Chapman is provided in Fig. 14 and as can be seen, the same value for the FEV was reached, providing verification and reliability to the author's method and results. 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{abbeysirwell.png}
+\captionsetup{width=.9\linewidth}
+\caption{Quadrant plot of the Boxing Day 2015 flood of the River Irwell at Adelphi Weir, produced by A. Chapman. The purpose of this is to provide verification of the author's results before undertaking a flood mitigation assessment. As the same values of FEV, $T_f$, $h_m$, $Q_T$ and $Q_m$ were reached in this verification as in the author's original analysis, the reader can assume these results are valid.}
+\end{figure}
+
+As the flood-excess volume relies solely on the choice of the threshold height $h_T$, Fig. 15 shows the relationship between choice of $h_T$ and corresponding values of FEV, and the equivalent side length of a 2m deep square-lake, as explained in \S 4.1.5. For the calculated FEV of $6.58\text{Mm}^3$, Fig. 15 also shows a three-dimensional view of a graphical representation of this volume. A 2m-deep square lake with sides of length 1814m would yield a volume equivalent to that of the calculated FEV.
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{irwellemptysquarelake.png}
+  \caption{}
+  \label{2a. fig:sub3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{irwellhtandfev.png}
+  \caption{}
+  \label{fig:sub4}
+\end{subfigure}
+\captionsetup{width=.9\linewidth}
+\caption{\textbf{a)} A graphical representation of the FEV calculated in \S 5.1.3. A 2m deep lake with side-lengths of 1814m gives a volume equal to that of the FEV, and this can be used to help visualise mitigation schemes and how proportions of the FEV are distributed amongst different mitigation measures. \textbf{b)} A graph to show the relationships between choice of $h_T$ and corresponding FEV values (pink) and side lengths of a 2m-deep square lake representation of the FEV (blue).}
+\label{Firstattempt}
+\end{figure}
+
+\newpage
+
+\section{Main results - flood mitigation and cost efficacy assessments for Greater Manchester using FEV}
+\subsection{Past and proposed mitigation schemes}
+\subsubsection{Flood storage basins in Salford}
+When the Boxing Day 2015 flood of the River Irwell occurred, one flood basin was already in operation in Salford which helped to limit the damage of this event. Before the completion of this basin in 2005, the heightened river embankments alone provided protection to a 1-in-40 year standard. However, the \pounds 15M construction of Littleton Road flood basin raised this protection to a 1-in-75 year standard, and has a capacity of 650,000m$^3$ \cite{42}. \\
+
+The construction of a \pounds 10M second flood basin on Castle Irwell in Salford was completed in February 2018 and has a capacity of 590,000m$^3$. The two flood basins work together to protect around 2000 properties in Salford and the surrounding area from a flood with a 100-year return period, increasing the protection once more \cite{43}. The construction of the second basin forms part of a flood management plan in Greater Manchester which was allocated \pounds22 million in order to reduce the risk to 5000 properties. It is envisaged the plan will be completed by 2021, and includes the restoration of flood walls alongside the construction of the Castle Irwell flood basin \cite{44}.\\
+
+Littleton Road and Castle Irwell flood basins can both be found upstream from the Adelphi Weir monitoring station, therefore any flood water mitigated here will have an impact on the amount of flooding further downstream past the Adelphi Weir station and into Manchester city centre. Both basins were constructed by excavating a large area and by using the excavated material to build higher embankments around the perimeter, offline basins were created where flood water is temporarily stored away from the river \cite{45}. Each basin has an inlet on the western side which allows the spill of flood water into the basin in a controlled way when river levels are high. The flood water is stored here for the duration of the flood and is released back into the river by two outlet pipes once the river levels have lowered again \cite{45}. Holding 1.24Mm$^3$ of flood water together, the flood basins can mitigate 19\% of the FEV calculated in \S 5.1.3 with a threshold height of $h_T$ = 3m. The cost of the Castle Irwell basin was \pounds 10m, and with the cost of the Littleton Road basin being \pounds 15m \cite{46}, the cost of both basins totalled \pounds 25M. With these basins mitigating 19\% of the FEV, the cost per percentage of FEV mitigated is \pounds 1.32M.\\
+
+It is worth noting here that for the two flood basins working in tandem to mitigate 100\% of the FEV and therefore protecting the area from any future flood damage, a threshold height of $h_T \approx 3.55$m (Fig. 14b) would need to be chosen, which would incur the cost of \pounds 0.25M per percentage of FEV mitigated. It is known from previous research (outlined in \S 5.1.3) that flooding will have already occurred at this height, which adds strength to the argument that more flood defences need to be implemented around Greater Manchester to limit damage.\\
+
+\subsubsection{The Radcliffe and Redvales Flood Defence Scheme}
+Further upstream along the River Irwell from Manchester city centre and the Adelphi Weir monitoring station is the city of Bury. Just south of Bury, the areas of Radcliffe and Redvales are largely at risk of major flood damage \cite{18} from flooding of the River Irwell, and Bury County Council has recognised the need for increased flood defences in the area \cite{47}. The Radcliffe and Redvales Flood Defence Scheme has therefore been proposed by the Environment Agency and is due to begin construction in summer 2019, subject to planning permission etc., providing protection to around 870 properties \cite{48}. \\
+
+One proposed measure in the Radcliffe and Redvales Flood Defence Scheme is the construction of a flood storage basin at Swan Lodge \cite{49}. As this is further upstream than the Adelphi Weir station, the temporary storage of flood water here will have an impact on the FEV further downstream. Using an online tool to select the area corresponding to the proposed sketch of the basin by Bury Council and the Environment Agency \cite{49,50}, the area of Swan Lodge was estimated to be 52550m$^2$. To calculate the volume of flood water this basin will be able to hold, the depth the flood water reaches here must be known. To estimate this, reference back to \S 6.1 and the Castle Irwell basin will be made. Using \cite{50} the surface area of the Castle Irwell basin was approximated at 249,200m$^2$. With a volume of 590,000m$^3$, this infers that the flood water reaches a height of approximately 2.36m within the basin. Therefore using this value, it can be assumed that the Swan Lodge storage basin will have a volume of approximately 124,000m$^3$. \\
+
+To provide a cost-effectiveness analysis of this proposed flood basin, it must be known how much a flood storage area costs. The Environment Agency states that on average, the cost of the construction and maintenance of a storage basin is
+\begin{equation}\tag{6.1}
+Cost (/\text{m}^3) = 11239 \times volume^{-0.628},
+\end{equation}
+which was calculated by investigating the costs of multiple flood basins and finding a linear relationship between the cost and the volume of the basin \cite{51}. Therefore using (6.1) and taking the volume of the proposed basin to be 124,000m$^3$, the estimated cost will be \pounds 0.88M. At this volume, a mere 1.89\% of the FEV will be mitigating, giving the proposed Swan Lodge storage basin a cost of \pounds 0.47M per percentage of FEV mitigated.
+
+\subsection{Hypothetical schemes}
+\subsubsection{Higher flood walls}
+A hypothetical measure to mitigate the flood water would be to construct higher flood walls along the River Irwell from the Adelphi Weir monitoring station, downstream to past the city centre. An estimation of this distance on Google Maps \cite{52} is 4km, therefore 4km of flood walls would be required to ensure flood damage is avoided in the city centre. The cost of flood walls is estimated using the costings from a similar project, the Nottingham Left Bank Scheme \cite{53}. This programme involved the construction of 27km of flood walls, costing \pounds 45M, therefore from this the average cost of higher flood walls is estimated to be \pounds 1667 per metre therefore the required 4km would cost \pounds 6.67M. In order for the FEV to be mitigated completely, a $h_T$ of 3.9m would be needed (Fig. 14b). Accordingly, if 0.9m flood walls could hypothetically be constructed along the 4km of the River Irwell, the difference between $h_T=3$m used to calculate the FEV and the $h_T=3.9$m needed here, 100\% of the FEV would be mitigated and the cost per percentage of this would be \pounds 0.067M. If flood walls of only half this height could be found, then $h_T$ would be raised to 3.45m, and consequently the FEV reduced to approximately 2Mm$^3$ (from Fig. 14b). This would mitigate the FEV by 69.6\%, and therefore the cost per percentage of FEV mitigated would be around \pounds 0.10M.
+
+\subsubsection{Tree planting}
+It is mentioned in the Bury Local Flood Risk Management Strategy \cite{54} that sites for NFM measures (\S 2.2) are currently in the process of being identified. One method of NFM that could hypothetically be implemented in the Greater Manchester area to help with flooding is tree planting. Trees help to reduce the amount of surface water through interception of rainfall, improving ground infiltration rates and removing excess water from the catchment area by absorption \cite{8}. If sufficient trees were planted in Bury and the surrounding areas upstream of Adelphi Weir and Manchester city centre, they may be able to intercept enough water to have an impact on the FEV downstream.\\
+
+In order to hypothesise about using tree planting as a mitigation scheme, reference to \S 4.2.3 must be made, where tree planting is used in a hypothetical cost-effectiveness analysis of a mitigation scenario for the River Calder. Here, \pounds 5M of tree planting mitigated 3.75\% of the 1.65Mm$^3$ FEV, a mitigation of 61,875m$^3$ of flood water. In this scenario, this idea will be scaled. Imagine a \pounds 50M budget to mitigate 618,750m$^3$ of flood water by tree planting. This corresponds to 9.40\% of the FEV of the River Irwell flood. At \pounds 50M, this yields a cost of \pounds 5.31M per percentage of FEV mitigated.
+
+\newpage
+
+\subsubsection{SUDS}
+In urban areas, permeable ground surfaces can be inaccessible due to pavements and buildings, which can limit natural infiltration into the ground \cite{55}. As a consequence of this, rainwater can gather on the surfaces and contribute to fluvial flooding as a result of extensive and unnecessary surface run-off water into the rivers. A solution to this is sustainable urban drainage systems, or SUDS. The two types of SUDS that will be investigated are green roofs, which intercept and store rainwater, and porous pavement structures, which allow infiltration of rainwater. Simulations of these structures have been carried out and their effectiveness of mitigating flood water analysed \cite{56}.\\
+
+The catchment of the River Irwell is 715km$^2$, of which 30\% is urbanised \cite{57}, therefore an investigation into applying SUDS, specifically green roofs and porous pavement structures, to 214.5km$^2$ of the catchment will be undertaken as a hypothetical measure to mitigate flood water in the catchment area. The cost per m$^2$ of the installation and maintenance of green roofs has been estimated at \pounds 90, and \pounds 30 for porous pavement structures \cite{58}. Therefore the approximated cost to install these methods of SUDS over a 214.5km$^2$ area would be \pounds 25.7M. The simulations in \cite{56} show that on average, the efficiency of green roofs is 0.105m$^3$/m$^2$, ie. 0.105m$^3$ of water would be mitigated per 1m$^2$ of roof. Similarly the efficiency of porous pavement structures has been shown to be 0.128m$^3$/m$^2$. Therefore, over the catchment area, one would estimate the total amount of water mitigated by the SUDS to be 49979m$^3$, just 0.79\% of the FEV.  The cost per percentage of the FEV mitigated is then calculated to be a massive \pounds 34.9M. The extremely large cost of installing SUDS deems it to be an unsuitable method to mitigate flood water, however as SUDS do have some impact on the reduction of surface water, they should be taken into consideration when building new developments. The Government has stated that it expects planning policies of new major developments to ensure that SUDS are put into place \cite{59}.
+
+\subsubsection{Draining of reservoir}
+In \S 4.2.3 it is seen that the use of reservoirs to store flood water is the most cost-effective method from the hypothetical mitigation scheme for the River Calder, and also is responsible for the largest percentage of FEV mitigated \cite{28}. Therefore, the partial draining of a reservoir in order to store flood water for the River Irwell will be investigated in a hypothetical manner.\\
+
+There is one reservoir in Greater Manchester that has the River Irwell as an inflow. The Elton Reservoir lies 3km southwest of Bury, and can hold up to 1,000,000m$^3$ of water \cite{60}. Being located upstream of the Adelphi Weir monitoring station and Manchester city centre, a speculative analysis of the partial draining of this reservoir to store flood water could have a significant impact on reducing the damage from flooding downstream. The draining of the reservoir would be necessary before flooding occurs, to allow the reservoir to fill with flood water and reduce the volume of the flood water further downstream. \\
+
+In \S 4.2.3 it is shown that 40\% of the 1.65Mm$^3$ FEV is mitigated by the reservoirs in the oulined scenario. This equates to 0.66Mm$^3$ of flood water mitigated for the cost of \pounds 30M. Assuming that the cost of mitigating 1m$^3$ of flood water in this way could be estimated as \pounds 30M / 0.66Mm$^3$ = \pounds 45.45, then the theoretical cost of mitigating 625,100m$^3$ of water, or 9.51\% of the River Irwell FEV, would be \pounds 28.4M. This yields a cost of \pounds 2.99M per percentage of FEV mitigated.\\
+
+After assessing the individual cost of past, proposed and hypothetical flood mitigation methods, full mitigation scenarios can be outlined (\S 6.3). Clearly the cost per percentage of FEV mitigated varies greatly between each method. Fig. 16 shows the difference in costs per percentage of FEV for each of the mitigation methods outlined in \S 6.1 \& 6.2.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{prices.png}
+\captionsetup{width=.9\linewidth}
+\caption{A bar chart showing the cost per percentage of FEV mitigated of each of the mitigation methods discussed in \S 6.1 \& 6.2. This shows how large the cost of SUDS are in comparison to the other methods, and therefore SUDS will not be considered in the schemes outlined in \S 6.3.}
+\end{figure}
+
+\subsection{Hypothetical full scenarios for flood mitigation}
+Fig. 17 shows the first two hypothetical flood mitigation scenarios that will be assessed in the form of a square-lake graphical interpretation. FMS1 (Fig. 17a) mitigates a total of 99.89\% of the FEV, and includes a number of different mitigation methods. The two flood basins in Salford (Castle Irwell and Littleton Road) are used in this scenario together with the proposed Swan Lodge flood basin, the theoretical 3.45m high flood walls throughout Manchester city centre and tree planting across the catchment area. The cost of this scenario is \pounds 82.55M or \pounds 0.83M per percentage of the FEV mitigated.\\
+
+FMS2 (Fig. 17b) is a similar scenario, replacing the tree planting with the hypothetical draining of the Elton Reservoir by 625,100m$^3$ of water, and mitigates 100\% of the FEV. The total cost for this scenario is \pounds 60.95M, or \pounds 0.61M per percentage of FEV mitigated. As FMS1 is only 0.11\% away from mitigating the entire FEV, the two costs can be compared. As tree planting is costly for the amount of flooding it can alleviate, this is the reason for the higher cost of FMS1. Therefore FMS2, at only 73.8\% of the cost of FMS1, is more cost efficient than FMS1 when the reader is wanting to mitigate 100\% of the FEV.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{irwellscenario1.png}
+  \caption{}
+  \label{2a. fig:sub3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{irwellscenario2.png}
+  \caption{}
+  \label{fig:sub4}
+\end{subfigure}
+\captionsetup{width=.9\linewidth}
+\caption{\textbf{a)} A flood mitigation scenario (FMS1) that mitigates 99.89\% of the FEV, and makes use of the two Salford basins, the Swan Lodge basin, high flood walls of a height of 3.45m and tree planting. \textbf{b)} A flood mitigation scenario (FMS2) mitigating 100\% of the FEV, involving the two Salford basins, the Swan Lodge basin, high flood walls of a height of 3.45m and reservoir draining.}
+\label{Firstattempt}
+\end{figure}
+
+Flood mitigation scenario 3 (FMS3) is depicted in Fig. 18, in a square-lake format. This scenario is based solely on the existing two flood basins in Salford, and the proposed flood basin at Swan Lodge. It is provided to give a more realistic idea of a typical flood alleviation plan, as no hypothetical mitigation methods are utilised in this scenario. FMS3 mitigates only 20.89\% of the FEV, and at \pounds 1.24M per percentage of the FEV mitigated, it is less cost-efficient than the outlined FMS1 and FMS2.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{irwellscenario3.png}
+\captionsetup{width=.9\linewidth}
+\caption{A flood mitigation scenario (FMS3) that makes use of just the two flood basins in Salford and the Swan Lodge basin. This scenario mitigates 20.89\% of the FEV.}
+\end{figure}
+
+A scenario (FMS4) implementing the three flood storage basins, and the hypothetical drainage of the Elton reservoir by 625,100m$^3$ is shown in Fig. 19. FMS4 mitigates 30.4\% of the FEV, but is also slightly less cost-efficient than FMS3, at \pounds 1.76M per percentage of FEV mitigated. Comparing FMS3 and FMS4, the only difference is the addition of the reservoir draining method. Therefore one can assume that the increase in cost per percentage of FEV is because of this. A suggestion to be made here would be to construct a further flood basin of the size of Littleton Road, as an alternative to draining the reservoir. This extra storage basin would mitigate the same amount of FEV as the reservoir, however it would reduce the price per percentage of FEV mitigated down, and therefore make FMS4 a more cost-effective scenario.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{irwellscenario4.png}
+\captionsetup{width=.9\linewidth}
+\caption{A flood mitigation scenario (FMS4) that implements drainage of a certain volume out of a reservoir, the two Salford flood basins, and Swan Lodge basin. FMS4 mitigates 30.4\% of the FEV. }
+\end{figure}
+
+A final hypothetical flood alleviation scenario, FMS5, can be seen in Fig. 20. Here, 100\% of the FEV is mitigated solely by flood walls of a height of 3.9m, coinciding with the chosen threshold height $h_T=3.9$m (\S 5.1.3). At just \pounds 0.067M per percentage of the FEV mitigated, FMS5 is the most cost-effective scheme proposed in \S 6.3. If it was possible to construct walls of this height along the desired 4km stretch of the River Irwell, it would be very easy for policy makers and the local Council to mitigate against most flood damage, and to protect the area from a flood like that of 2015.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{irwellscenario5.png}
+\captionsetup{width=.9\linewidth}
+\caption{A flood mitigation scenario (FMS5) where 100\% of the FEV is mitigated just with high flood walls of a height of 3.9m.}
+\end{figure}
+
+\newpage
+
+\section{Summary and discussion}
+In order to propose hypothetical flood alleviation schemes and provide the reader with cost-effectiveness analyses, the concept of FEV was introduced. From here many assumptions were made and multiple hypothetical scenarios were put forward and analysed. However, there are many factors that should be taken into consideration when planning to alleviate flood damage: not only FEV and the cost efficiency should be analysed, but also any social and environmental impacts mitigation methods may have on the local area and community. For example, the proposed idea of high flood walls may be rejected by local residents due to disrupting the city's aesthetic. \\
+
+Throughout the course of this project, it has been discovered that high flood walls are the most cost effective flood mitigation measure, however analysis of this has been very hypothetical as the average available height to build flood walls to is not known. It is also not known if it is possible to build these walls in the investigated area. The partial draining of reservoirs has been seen as one of the more effective ways of mitigating flood water, albeit at a higher cost than flood walls. Sustainable urban drainage systems have appeared to be extremely expensive and therefore were not included in the hypothetical scenarios of mitigating the FEV of the River Irwell flood. The planting of trees has also been found to not be cost effective, due to the small amount of FEV mitigated at a high cost.\\
+
+FEV as a model does contain some flaws. The whole model is based on a value $h_T$, which has to be estimated very crudely in some cases. This provides a very inaccurate value for FEV, from which one cannot make any reasonable assumptions on flood alleviation or the cost efficiency of methods.\\
+
+If the team was to continue with this project, methods of obtaining $h_T$ more accurately would be investigated. A deeper understanding of how rainfall contributes towards flooding would be sought, in addition to learning the fluid dynamics behind certain mitigation methods, in order to fully understand how they work.
+
+\subsection{Further reading}
+As the work of the team was based originally on the findings of O. Bokhove, T. Kent and M. Kelmanson, the reader may find it useful to read the works of these authors (\cite{4,28}). One of the aims of this project was to create a webpage to display the team's findings. Three webpages were created \footnote{\textbf{https://github.com/Rivers-Project-2018/How-to-do-FEV-Analysis} was created by A. Fielden and contains information and the methodology on how to complete an FEV analysis. \\ \textbf{https://github.com/Rivers-Project-2018/Group-Project} was created as a team and includes the teams verifications and findings mentioned in \S 4 of this report. \\ \textbf{https://github.com/Rivers-Project-2018/River-Irwell-Mary-Saunders} was created by the author and contains their individual research and analysis of the River Irwell, as explained in \S 5-6 of this report.} and may be found useful by the reader for more information on the codes used to calculate FEV, and to produce the graphs included in this report.
+
+\subsection{Acknowledgements}
+Acknowledgements to the Environment Agency in Greater Manchester are given by the author for providing the river level measurements to make the analyses contained in this report viable. The author would also like acknowledge the help of the team members, in partiular A. Chapman and A. Fielden who provided parts of the code used in Python for the production of some of the graphs included in this report. This report contains public sector information licensed under the Open Government Licence v3.0.
+
+\newpage
+
+\begin{thebibliography}{}
+\bibitem{1}The Guardian. \textit{Major flooding in UK now likely every year, warns lead climate adviser.} [Online]. 2016. [Accessed 8th December 2018]. Available from: https://www.theguardian.com/environment/2016/dec/26/major-flooding-in-uk-now-likely-every-year-
+warns-lead-climate-adviser-storm-desmond.
+\bibitem{2}Wikipedia. \textit{2015 Great Britain and Ireland floods.} [Online]. [Accessed 8th December 2018]. Available from: https://en.wikipedia.org/wiki/2015-16{\_}Great{\_}Britain{\_}and{\_}Ireland{\_}floods. 
+\bibitem{3}The Independent. \textit{UK flooding: 200-year-old pub on bridge collapses as River Irwell floods.} [Online]. 2015. [Accessed 9th March 2019]. Available from: https://www.independent.co.uk/news/uk/home-news/uk-flooding-200-year-old-pub-on-bridge-collapses-
+as-river-irwell-floods-a6786556.html.
+\bibitem{4}Bokhove, O., Kent, T. and M Kelmanson. \textit{On using flood-excess volume in flood mitigation, exemplified for the River Aire Boxing Day Flood of 2015}. [Online]. 2018. [Accessed 19th March 2019]. Available from: https://eartharxiv.org/stc7r/.
+\bibitem{5}Ambiental. \textit{Types of flood and flooding impact}. [Online]. [Accessed 20th March 2019]. Available from: https://ambiental.co.uk/types-of-flood-and-flooding-impact/.
+\bibitem{6}CTCN. \textit{Flow-through dams}. [Online]. 2016. [Accessed 10th February 2019]. Available from: https://www.ctc-n.org/resources/flow-through-dams.
+\bibitem{7}The British Geographer. \textit{Floods and River Management}. [Online]. [Accessed 10th February 2019]. Available from: http://thebritishgeographer.weebly.com/floods-and-river-management.html.
+\bibitem{8}Institute of Chartered Foresters. \textit{Trees can Reduce Floods}. [Online]. 2017. [Accessed 6th December 2018]. Available from: https://www.charteredforesters.org/2017/06/trees-can-reduce-floods/.
+\bibitem{9}Environment Agency. \textit{Working with Natural Processes}. [Online]. 2018. [Accessed 20th February 2019]. Available from: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/
+attachment{\_}data/file/681
+411/Working{\_}with{\_}natural{\_}processes{\_}evidence{\_}directory.pdf.
+\bibitem{10}Yorkshire Dales National Park Authority. \textit{Natural Flood Management Measures}. [Online]. 2017. [Accessed 11th February 2019]. Available from: http://www.yorkshiredales.org.uk/{\_}data/assets/pdf{\_}file/0003/1010991/11301{\_}flood{\_}management{\_}guide
+{\_}WEBx.pdf. 
+\bibitem{11}Climatica. \textit{Return Periods of Extreme Events}. [Online]. [Accessed 20th March 2019]. Available from: climatica.org.uk/climate-science-information/return-periods-extreme-events.
+\bibitem{12}GaugeMap. \textit{About Shoothill GaugeMap}. [Online]. [Accessed 19th March 2019]. Available from: https://gaugemap.co.uk/\#!About
+\bibitem{13}Environment Agency. \textit{Extension of Rating Curves at Gauging Stations
+Best Practice Guidance Manual}. [Online]. 2003. [Accessed 18th March 2019]. Available from: https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment\_data/file/
+290416/sw6-061-m-e-e.pdf.
+\bibitem{14}DHV Consultants BV \& DELFT HYDRAULICS. \textit{How to establish stage discharge rating curve}. [Online]. 1999. [Accessed 2nd March 2019]. Available from: http://www.mahahp.gov.in/images/29HOWTOESTABLISHSTAGEDISCHARGERATINGCURVE.pdf.
+\bibitem{15}Wikipedia. \textit{River Aire}. [Online]. [Accessed 10th December 2018]. Available from: https://en.wikipedia.org/wiki/River{\_}Aire. 
+\bibitem{16}Kirkstall Valley Park. \textit{Flooding Issues}. [Online]. [Accessed 20th February 2019]. Available from: http://kvp.org.uk/flooding.htm.
+\bibitem{17}River Levels. \textit{River Aire at Armley}. [Online]. [Accessed 10th December 2018]. Available from: https://riverlevels.uk/river-aire-leeds-armley{\#}.XA512hP7TfY. 
+\bibitem{18}Gov.uk. \textit{Flood map for planning}. [Online]. [Accessed 20th March 2019]. Available from: https://flood-map-for-planning.service.gov.uk/.
+\bibitem{19}Football Stadiums. \textit{Are All Football Pitches The Same Size?}. [Online]. [Accessed 19th March 2019]. Available from: https://www.football-stadiums.co.uk/articles/are-all-football-pitches-the-same-size/.
+\bibitem{20}Leeds City Council. \textit{Leeds Flood Alleviation Scheme - Phase One}. [Online]. 2019. [Accessed 18th March 2019]. Available from: https://www.leeds.gov.uk/parking-roads-and-travel/flood-alleviation-scheme/flood-alleviation-scheme-
+phase-one.
+\bibitem{21}ARUP. \textit{The Flood Alleviation Scheme in Leeds is one of the largest river flood schemes in the UK}. [Online]. [Accessed 18th March 2019]. Available from: https://www.arup.com/projects/leeds-flood-alleviation-scheme.
+\bibitem{22}Leeds City Council. \textit{Leeds Flood Alleviation Scheme}. [Online]. [Accesed 11th December 2018]. Available from: https://www.leeds.gov.uk/parking-roads-and-travel/flood-alleviation-scheme. 
+\bibitem{23}Leeds City Council. \textit{Leeds Flood Alleviation Scheme - Phase Two - Area Information}. [Online]. 2019. [Accessed 20th March 2019]. Available from: https://www.leeds.gov.uk/parking-roads-and-travel/flood-alleviation-scheme/flood-alleviation-scheme-
+phase-two/flood-alleviation-scheme-phase-two-area-information.
+\bibitem{24}Kent, T. \textit{Using 'flood-excess volume' to quantify and communicate flood mitigation schemes}. [Online]. 2018. [Accessed 10th December 2018]. Available from: https://research.reading.ac.uk/dare/2018/09/27/using-flood-excess-volume-to-quantify-and-communicate-
+flood-mitigation-schemes/. 
+\bibitem{25}Wikipedia. \textit{River Calder, West Yorkshire}. [Online]. [Accessed 10th December 2018]. Available from: https://en.wikipedia.org/wiki/River{\_}Calder,{\_}West.
+\bibitem{26}BBC News. \textit{Calder Valley flood sirens sound for 'biggest ever' exercise}. [Online]. 2016. [Accessed 10th December 2018]. Available from: https://www.bbc.co.uk/news/uk-england-leeds-37654405. 
+\bibitem{27}River Levels. \textit{River Calder at Mytholmroyd}. [Online]. [Accessed 10th December 2018]. Available from: https://riverlevels.uk/river-calder-hebden-royd-mytholmroyd{\#}.XA6abxP7TfY.
+\bibitem{28}Bokhove, O., Kent, T. and M Kelmanson. \textit{On using flood-excess volume to assess natural flood management, exemplified for extreme 2007 and 2015 floods in Yorkshire}. [Online]. 2018. [Accessed 16th March 2019]. Available from: https://eartharxiv.org/87z6w/.
+\bibitem{29}Eye on Calderdale. \textit{Reducing the risk of flooding in Calderdale}. [Online]. 2018. [Accessed 12th December 2018]. Available from: https://eyeoncalderdale.com/Media/Default/Flooding{\%}20Documents/FAP/Updated-Calderdale-FAP-
+bklt-2018.pdf.
+\bibitem{30}The Yorkshire Post. \textit{The fight to protect Sheffield from repeat of deadly floods of 2007}. [Online]. 2017. [Accessed 11th December 2018]. Available from: https://www.yorkshirepost.co.uk/news/the-fight-to-protect-sheffield-from-repeat-of-deadly-floods-of-2007
+-1-8611534. 
+\bibitem{31}River Levels. \textit{River Don at Hadfields}. [Online]. [Accessed 11th December 2018]. Available from: https://riverlevels.uk/river-don-tinsley-hadfields{\#}.XBAifxP7TfY. 
+\bibitem{32}Manchester Evening News. \textit{A new £10m flood basin will keep 2,000 homes in Salford safe}. [Online]. 2018. [Accessed 11th February 2019]. Available from: https://www.manchestereveningnews.co.uk/news/greater-manchester-news/new-10m-flood-basin-keep-
+14239997.
+\bibitem{33}Wikipedia. \textit{River Irwell}. [Online]. [Accessed 20th March 2019]. Available from: https://en.wikipedia.org/wiki/River\_Irwell.
+\bibitem{34}Manchester History. \textit{River Irwell}. [Online]. [Accessed 18th March 2019]. Available from: http://manchesterhistory.net/manchester/WATERWAYS/irwell/riverirwell.html.
+\bibitem{35}Mirror. \textit{Manchester floods leave 'beach' in city centre as pictures show devastation}. [Online]. 2015. [Accessed 18th March 2019]. Available from: https://www.mirror.co.uk/news/uk-news/manchester-floods-leave-beach-city-7077728.
+\bibitem{36}About Manchester. \textit{Boxing Day floods were the worst ever}. [Online]. 2016. [Accessed 18th March 2019]. Available from: http://aboutmanchester.co.uk/boxing-day-floods-were-the-worst-ever/.
+\bibitem{37}River Levels. \textit{River Irwell at Adelphi Weir}. [Online]. [Accessed 27th February 2019]. Available from: https://riverlevels.uk/irwell-salford-adelphi-weir{\#}.XHbvj8{\_}7TfY. 
+\bibitem{38}Shoothill GaugeMap. \textit{Shoothill GaugeMap}. [Online]. [Accessed 19th March 2019]. Available from: https://www.gaugemap.co.uk.
+\bibitem{39}Cooke, C. on behalf of the Environment Agency in Greater Manchester, Merseyside and Cheshire. Email to Mary Saunders, 8th November, 2018.
+\bibitem{40}Shoothill GaugeMap. \textit{Shoothill GaugeMap}. [Online]. [Accessed 19th March 2019]. Available from: https://www.gaugemap.co.uk/{\#}!Map/Summary/539/547.
+\bibitem{41}Manchester Evening News. \textit{Live updates: Clean-up continues after Greater Manchester hit by Boxing Day floods}. [Online]. 2015. [Accessed 17th March 2019]. Available from: https://www.manchestereveningnews.co.uk/news/greater-manchester-news/live-updates-rain-flooding-
+manchester-10652325.
+\bibitem{42}Environment Agency. \textit{River Irwell flood control scheme}. [Online]. 2005. [Accessed 17th March 2019. Available from: https://webarchive.nationalarchives.gov.uk/20110118145310/http://www.cabe.org.uk/
+case-studies/river-irwell/evaluation.
+\bibitem{43}Environment Agency. \textit{Environment Agency completes £10 million flood storage basin on World Wetlands Day}. [Online]. 2018. [Accessed 20th March 2019]. Available from: https://www.gov.uk/government/news/environment-agency-completes-10-million-flood-storage-basin-on-
+world-wetlands-day.
+\bibitem{44}Manchester City Council. \textit{Flood Investigation Report}. [Online]. 2015. [Accessed 16th March 2019]. Available from: https://www.greatermanchester-ca.gov.uk/media/1261/boxing-day-flood-report.pdf.
+\bibitem{45}{Environment Agency. \textit{Fluvial Design Guide - Chapter 10}. [Online]. [Accessed 21st March 2019]. Available from: http://evidence.environment-agency.gov.uk/FCERM/en/FluvialDesignGuide/Chapter
+10.aspx.
+\bibitem{46}Environment Agency. \textit{River Irwell flood control scheme}. [Online]. 2005. [Accessed 19th March 2019. Available from: https://webarchive.nationalarchives.gov.uk/20110118145321/http://www.cabe.org.uk/
+case-studies/river-irwell/info.
+\bibitem{47}Bury Council. \textit{Radcliffe and Redvales flood defence scheme}. [Online]. 2018. [Accessed 20th March 2019]. Available from: https://www.bury.gov.uk/index.aspx?articleid=13483.
+\bibitem{48}Bury Times. \textit{SPECIAL REPORT: Radcliffe and Redvales flood defence scheme plans}. [Online]. 2018. [Accessed 20th March 2019]. Available from: https://www.burytimes.co.uk/news/17293691.special-report-radcliffe-and-redvales-flood-defence-scheme-
+plans/.
+\bibitem{49}Bury Council. \textit{Redvales and Radcliffe residents given chance to view £46 million flood prevention plans}. [Online]. 2018. [Accessed 20th March 2019]. Available from: http://www.mynewsdesk.com/uk/bury-council/news/redvales-and-radcliffe-residents-given-chance-to-
+view-46-pounds-million-flood-prevention-plans-338479.
+\bibitem{50}DaftLogic. \textit{Google Maps Area Calculator Tool}. [Online]. [Accessed 18th March 2019]. Available from:https://www.daftlogic.com/projects-google-maps-area-calculator-tool.htm.
+\bibitem{51}Environment Agency. \textit{Cost estimation for flood storage - summary of evidence}. [Online]. 2015. [Accessed 19th March 2019]. Available from: http://evidence.environment-agency.gov.uk/FCERM/Libraries/FCERM\_Project\_Documents/SC080039
+{\_}cost\_flood\_storage.sflb.ashx.
+\bibitem{52}Google. \textit{Google Maps}. [Online]. [Accessed 19th March 2019]. Available from: https://www.google.co.uk/maps/.
+\bibitem{53}BBC News. \textit{Floods: how much can new barriers help?}. [Online]. 2012. [Accessed 20th March 2019]. Available from: https://www.bbc.co.uk/news/science-environment-20511267.
+\bibitem{54}Bury Council. \textit{Bury Local Flood Risk Management Strategy}. [Online]. 2018. [Accessed 19th March 2019]. Available from: https://www.bury.gov.uk/CHttpHandler.ashx?id=18906\&p=0.
+\bibitem{55}British Geological Survey. \textit{What are SuDS and how do they work?}. [Online]. [Accessed 20th March 2019]. Available from: https://www.bgs.ac.uk/research/engineeringGeology/urbanGeoscience/suds/what.html.
+\bibitem{56}Jato-Espino, D., Charlesworth, S.M., Bayon, J.R. and Warwick, F.  \textit{Rainfall-runoff simulations to assess the potential of SuDS for mitigating flooding in highly urbanized catchments}. [Online]. 2016. [Accessed 18th March 2019]. Available from: https://www.mdpi.com/1660-4601/13/1/149.
+\bibitem{57}Irwell Rivers Trust. \textit{Geographical Area}. [Online]. [Accessed 18th March 2019]. Available from: http://irwellriverstrust.com/river-irwell/geographical-area/.
+\bibitem{58}Environment Agency. \textit{Cost estimation for SUDS - summary of evidence}. [Online]. 2015. [Accessed 18th March 2019]. Available from: http://evidence.environment-agency.gov.uk/FCERM/Libraries/FCERM{\_}Project{\_}Documents/SC080039
+{\_}cost{\_}SUDS.sflb.ashx.
+\bibitem{59}Parliament UK. \textit{Sustainable drainage systems}. [Online]. 2014. [Accessed 18th March 2019]. Available from: https://www.parliament.uk/documents/commons-vote-office/December
+{\%}202014/18{\%}20December/6.{\%}20DCLG-sustainable-drainage-systems.pdf.
+\bibitem{60}Wikipedia. \textit{Manchester Bolton and Bury Reservoir}. [Online]. [Accessed 19th March 2019]. Available from: https://en.wikipedia.org/wiki/Manchester{\_}Bolton{\_}{\%}26{\_}Bury{\_}Reservoir.
+
+\end{thebibliography}
+\end{document}
