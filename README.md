@@ -19,13 +19,13 @@ Using the Python code provided in https://github.com/Rivers-Project-2018/How-to-
 
 ## Current mitigation methods
 
-In Salford there are two operational flood basins, only one of which was constructed before the Boxing Day 2015 flood. Both operate to alleviate flooding of the River Irwell, and are both upstream of the Adelphi Weir monitoring station, meaning we can look at them when mitigating the FEV. Together the Castle Irwell and Littleton Road flood basins can hold up to 1.24 Mm<sup>3<\sup> of flood water, just 19% of the FEV value calculated. This value shows how much Greater Manchester would benefit from more flood defences against a flood of this magnitude.
+In Salford there are two operational flood basins, only one of which was constructed before the Boxing Day 2015 flood. Both operate to alleviate flooding of the River Irwell, and are both upstream of the Adelphi Weir monitoring station, meaning we can look at them when mitigating the FEV. Together the Castle Irwell and Littleton Road flood basins can hold up to 1.24 Mm<sup>3</sup> of flood water, just 19% of the FEV value calculated. This value shows how much Greater Manchester would benefit from more flood defences against a flood of this magnitude.
  
 ## Proposed mitigation methods
 
 Further upstream to Adelphi Weir is the city of Bury, which was heavily affected by the 2015 Boxing Day flood. As a result of this Bury Counci have announced the Radcliffe and Redvales Flood Defence Scheme [4], due to start construction in summer 2019 and is estimated to provide protection to around 870 properties. 
 
-One proposed method is the construction of a further flood storage basin at Swan Lodge. Using an online tool and the volume and depth of the Castle Irwell storage area, I was able to estimate the volume of this basin to be 124,000 m<sup>3<\sup>. Then, using a formula provided by the Environment Agency, the cost of the construction and maintenance of this proposed basin was estimated to be £0.88M.
+One proposed method is the construction of a further flood storage basin at Swan Lodge. Using an online tool and the volume and depth of the Castle Irwell storage area, I was able to estimate the volume of this basin to be 124,000 m<sup>3</sup>. Then, using a formula provided by the Environment Agency, the cost of the construction and maintenance of this proposed basin was estimated to be £0.88M.
  
 ## Hypothetical flood mitigation scenarios
 
